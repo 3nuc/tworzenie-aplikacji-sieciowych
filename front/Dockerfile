@@ -1,4 +1,5 @@
-#https://vuejs.org/v2/cookbook/dockerize-vuejs-app.html
+#https://vuejs.org/v2/cookbook/dockerize-vuejs-app.html#Real-World-Example
+CMD ["http-server", "dist"]
 #https://github.com/3nuc/zio/blob/master/Dockerfile
 FROM node:lts-alpine
 
@@ -19,5 +20,8 @@ COPY . .
 
 RUN npm run build
 
-EXPOSE 8080
-CMD ["http-server", "dist"]
+# production stage
+FROM nginx:stable-alpine as production-stage
+COPY --from=build-stage /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
