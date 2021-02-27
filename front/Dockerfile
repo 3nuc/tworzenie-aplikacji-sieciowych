@@ -1,7 +1,6 @@
-#https://vuejs.org/v2/cookbook/dockerize-vuejs-app.html#Real-World-Example
-CMD ["http-server", "dist"]
-#https://github.com/3nuc/zio/blob/master/Dockerfile
-FROM node:lts-alpine
+FROM node:14.16.0-alpine3.13 as build-stage
+# https://vuejs.org/v2/cookbook/dockerize-vuejs-app.html#Real-World-Example
+# https://github.com/3nuc/zio/blob/master/Dockerfile
 
 # install simple http server for serving static content
 RUN npm install -g http-server
