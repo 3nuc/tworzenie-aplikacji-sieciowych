@@ -52,7 +52,7 @@ export default defineConfig({
       customComponentResolvers: [
         // https://github.com/antfu/vite-plugin-icons
         ViteIconsResolver({
-          componentPrefix: '',
+          componentPrefix: 'vite-icon',
           // enabledCollections: ['carbon']
         }),
       ],
