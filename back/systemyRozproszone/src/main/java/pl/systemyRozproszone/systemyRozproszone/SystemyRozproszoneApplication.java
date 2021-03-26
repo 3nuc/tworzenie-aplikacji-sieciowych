@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 public class SystemyRozproszoneApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(SystemyRozproszoneApplication.class, args);
 	}
 
