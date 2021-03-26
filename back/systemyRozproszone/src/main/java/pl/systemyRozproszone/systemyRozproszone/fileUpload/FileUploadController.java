@@ -4,6 +4,7 @@ package pl.systemyRozproszone.systemyRozproszone.fileUpload;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class FileUploadController {
@@ -29,7 +32,7 @@ public class FileUploadController {
         boolean doesFileAlreadyExist = checkWhetherFileWithThisNameAlreadyExists(file.getOriginalFilename());
 
         if(!doesFileAlreadyExist){
-            File newFile = new File("${fileUploadDirectory}"+file.getOriginalFilename());
+            File newFile = new File("/Users/tomaszkoltun/Documents/uploadedSpringFiles/"+file.getOriginalFilename());
             try {
                 newFile.createNewFile();
                 FileOutputStream fout = new FileOutputStream(newFile);
@@ -45,8 +48,13 @@ public class FileUploadController {
         return new ResponseEntity<>("file already exists", HttpStatus.NOT_ACCEPTABLE);
     }
 
+    /**
+     *
+     * @param fileName name of file to be uploaded
+     * @return true if this file already exists, false if doesnt exist and can be uploaded
+     */
     private boolean checkWhetherFileWithThisNameAlreadyExists(String fileName) {
-        File dir = new File("${fileUploadDirectory}");
+        File dir = new File("/Users/tomaszkoltun/Documents/uploadedSpringFiles/");
         File[] directoryListing = dir.listFiles();
         if (directoryListing != null) {
             for (File child : directoryListing) {
@@ -58,5 +66,24 @@ public class FileUploadController {
             return true;
         }
         return false;
+    }
+
+
+    /**
+     *
+     * @return every uploaded file name
+     */
+    @GetMapping("/listOfFiles")
+    public List<String> listOfFiles(){
+        List<String> fileNames = new ArrayList<>();
+
+        File dir = new File("/Users/tomaszkoltun/Documents/uploadedSpringFiles/");
+        File[] directoryListing = dir.listFiles();
+        if (directoryListing != null) {
+            for (File child : directoryListing) {
+                fileNames.add(child.getName());
+            }
+        }
+        return fileNames;
     }
 }
