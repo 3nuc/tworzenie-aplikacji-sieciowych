@@ -4,6 +4,6 @@ services:
     ports:
       - "8080:80"
   back:
-    build: /back
+    build: ./back
     ports:
       - "8082:8082"    
