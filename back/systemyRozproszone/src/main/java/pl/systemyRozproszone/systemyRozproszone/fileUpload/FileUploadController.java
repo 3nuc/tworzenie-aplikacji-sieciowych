@@ -1,23 +1,28 @@
 package pl.systemyRozproszone.systemyRozproszone.fileUpload;
 
 
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class FileUploadController {
+
+    public static String PATH = "/Users/tomaszkoltun/Documents/uploadedSpringFiles/";
 
     /**
      *
@@ -32,7 +37,7 @@ public class FileUploadController {
         boolean doesFileAlreadyExist = checkWhetherFileWithThisNameAlreadyExists(file.getOriginalFilename());
 
         if(!doesFileAlreadyExist){
-            File newFile = new File("/Users/tomaszkoltun/Documents/uploadedSpringFiles/"+file.getOriginalFilename());
+            File newFile = new File(PATH + file.getOriginalFilename());
             try {
                 newFile.createNewFile();
                 FileOutputStream fout = new FileOutputStream(newFile);
@@ -50,11 +55,35 @@ public class FileUploadController {
 
     /**
      *
+     * @param fileName filename
+     * @return status with file or status alone
+     */
+    @GetMapping(value = "/download/{fileName}")
+    public ResponseEntity<Resource> getFile(@PathVariable("fileName") String fileName){
+
+
+        File newFile = new File(PATH + fileName);
+        Path path = Paths.get(newFile.getAbsolutePath());
+        try {
+            ByteArrayResource resource = new ByteArrayResource(Files.readAllBytes(path));
+            return ResponseEntity.ok()
+                    .contentLength(newFile.length())
+                    .contentType(MediaType.parseMediaType("application/octet-stream"))
+                    .body(resource);
+
+        } catch (IOException e) {
+            return new ResponseEntity("file not found", HttpStatus.CONFLICT);
+        }
+
+    }
+
+    /**
+     *
      * @param fileName name of file to be uploaded
      * @return true if this file already exists, false if doesnt exist and can be uploaded
      */
     private boolean checkWhetherFileWithThisNameAlreadyExists(String fileName) {
-        File dir = new File("/Users/tomaszkoltun/Documents/uploadedSpringFiles/");
+        File dir = new File(PATH);
         File[] directoryListing = dir.listFiles();
         if (directoryListing != null) {
             for (File child : directoryListing) {
@@ -77,7 +106,7 @@ public class FileUploadController {
     public List<String> listOfFiles(){
         List<String> fileNames = new ArrayList<>();
 
-        File dir = new File("/Users/tomaszkoltun/Documents/uploadedSpringFiles/");
+        File dir = new File(PATH);
         File[] directoryListing = dir.listFiles();
         if (directoryListing != null) {
             for (File child : directoryListing) {
