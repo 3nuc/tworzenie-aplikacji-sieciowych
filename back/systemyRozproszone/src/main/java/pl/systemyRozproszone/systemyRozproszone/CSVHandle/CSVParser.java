@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static pl.systemyRozproszone.systemyRozproszone.arithmeticOperations.ArithmeticOperationController.PATH;
+
 public class CSVParser {
 
     public static List<List<String>> parseCSVtoListArray(File file){
@@ -43,7 +45,7 @@ public class CSVParser {
         return reversedList;
     }
 
-    public static File parseListOfListsToCSV(List<List<String>> list){
+    public static File parseListOfListsToCSV(List<List<String>> list, String fileName){
 
         int rows = list.get(0).size();
         int columns = list.size();
@@ -59,6 +61,19 @@ public class CSVParser {
             }
             reversedList.add(row);
 
+        }
+
+        try {
+            FileWriter csvWriter = new FileWriter(fileName);
+            for(List<String> row : reversedList){
+                csvWriter.append(String.join(",", row));
+                csvWriter.append("\n");
+            }
+            csvWriter.flush();
+            csvWriter.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         System.out.println("test");
         return null;
