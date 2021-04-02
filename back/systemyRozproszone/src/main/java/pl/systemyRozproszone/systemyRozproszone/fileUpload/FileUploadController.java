@@ -62,6 +62,8 @@ public class FileUploadController {
     public ResponseEntity<Resource> getFile(@PathVariable("fileName") String fileName){
 
 
+        //kurwa zwraca jako tablice bajtow czyli bezuzyteczny jebaniec
+        // do plikow .csv trza bedzie dodac superscv by sam budowal z pliku jakiegos
         File newFile = new File(PATH + fileName);
         Path path = Paths.get(newFile.getAbsolutePath());
         try {
