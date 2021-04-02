@@ -9,12 +9,13 @@ import static pl.systemyRozproszone.systemyRozproszone.arithmeticOperations.Arit
 
 public class CSVParser {
 
-    public static List<List<String>> parseCSVtoListArray(File file){
+    public static List<List<String>> parseCSVtoListArray(String fileName){
 
+        File newFile = new File(PATH + fileName);
         List<List<String>> parsedList = new ArrayList<>();
         List<List<String>> reversedList = new ArrayList<>();
 
-        try(BufferedReader br = new BufferedReader(new FileReader(file))){
+        try(BufferedReader br = new BufferedReader(new FileReader(newFile))){
 
             String line;
             while ((line = br.readLine())!=null){
