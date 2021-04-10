@@ -1,6 +1,7 @@
 package pl.systemyRozproszone.systemyRozproszone.fileUpload;
 
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,8 @@ import java.util.List;
 @RestController
 public class FileUploadController {
 
-    public static String PATH = "/Users/tomaszkoltun/Documents/uploadedSpringFiles/";
+    @Value("${fileUploadDirectory}")
+    public String PATH;
 
     /**
      *

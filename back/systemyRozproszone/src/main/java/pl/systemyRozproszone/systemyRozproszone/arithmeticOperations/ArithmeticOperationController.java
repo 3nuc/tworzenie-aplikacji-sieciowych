@@ -1,6 +1,7 @@
 package pl.systemyRozproszone.systemyRozproszone.arithmeticOperations;
 
 import org.apache.juli.logging.Log;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import pl.systemyRozproszone.systemyRozproszone.CSVHandle.CSVParser;
 import pl.systemyRozproszone.systemyRozproszone.arithmeticOperations.helperClasses.Discretizer;
@@ -14,7 +15,9 @@ import java.util.List;
 @RestController
 public class ArithmeticOperationController {
 
-    public static String PATH = "/Users/tomaszkoltun/Documents/uploadedSpringFiles/";
+    @Value("${fileUploadDirectory}")
+    public static String PATH;
+
     public static String TAG = "ArithmeticOperationController";
 
 
