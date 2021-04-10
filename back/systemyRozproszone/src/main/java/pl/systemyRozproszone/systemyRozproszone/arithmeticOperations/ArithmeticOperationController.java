@@ -3,6 +3,7 @@ package pl.systemyRozproszone.systemyRozproszone.arithmeticOperations;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import pl.systemyRozproszone.systemyRozproszone.CSVHandle.CSVParser;
+import pl.systemyRozproszone.systemyRozproszone.arithmeticOperations.helperClasses.digitization.Digitizer;
 import pl.systemyRozproszone.systemyRozproszone.arithmeticOperations.helperClasses.discretization.Discretizer;
 import pl.systemyRozproszone.systemyRozproszone.arithmeticOperations.helperClasses.discretization.DiscretizerResponseEnum;
 import pl.systemyRozproszone.systemyRozproszone.arithmeticOperations.helperClasses.normalization.Normalizer;
@@ -56,7 +57,24 @@ public class ArithmeticOperationController {
 
 
         return response;
+    }
 
+    @GetMapping("/digitalization/get")
+    public DiscretizerResponseEnum returnResult(
+            @RequestParam("fileName") String fileName,
+            @RequestParam("columnName") String columnName){
+
+        List<List<String>> testFile = CSVParser.parseCSVtoListArray(fileName, PATH);
+        Digitizer digitizer = new Digitizer();
+        DiscretizerResponseEnum response = digitizer.digitize(testFile,columnName);
+        if(response.equals(DiscretizerResponseEnum.SUCCESS)){
+            testFile = digitizer.returnList();
+            CSVParser.parseListOfListsToCSV(testFile, PATH+"twojStaryNajebanyXD.csv");
+        }
+
+
+
+        return response;
 
     }
 
