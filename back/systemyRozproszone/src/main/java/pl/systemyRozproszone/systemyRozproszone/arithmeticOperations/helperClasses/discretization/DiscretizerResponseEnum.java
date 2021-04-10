@@ -1,4 +1,4 @@
-package pl.systemyRozproszone.systemyRozproszone.arithmeticOperations.helperClasses;
+package pl.systemyRozproszone.systemyRozproszone.arithmeticOperations.helperClasses.discretization;
 
 public enum DiscretizerResponseEnum {
 

@@ -1,14 +1,12 @@
 package pl.systemyRozproszone.systemyRozproszone.arithmeticOperations;
 
-import org.apache.juli.logging.Log;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import pl.systemyRozproszone.systemyRozproszone.CSVHandle.CSVParser;
-import pl.systemyRozproszone.systemyRozproszone.arithmeticOperations.helperClasses.Discretizer;
-import pl.systemyRozproszone.systemyRozproszone.arithmeticOperations.helperClasses.DiscretizerResponseEnum;
+import pl.systemyRozproszone.systemyRozproszone.arithmeticOperations.helperClasses.discretization.Discretizer;
+import pl.systemyRozproszone.systemyRozproszone.arithmeticOperations.helperClasses.discretization.DiscretizerResponseEnum;
+import pl.systemyRozproszone.systemyRozproszone.arithmeticOperations.helperClasses.normalization.Normalizer;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 
@@ -16,18 +14,18 @@ import java.util.List;
 public class ArithmeticOperationController {
 
     @Value("${fileUploadDirectory}")
-    public static String PATH;
+    public String PATH;
 
-    public static String TAG = "ArithmeticOperationController";
+    public  static String TAG = "ArithmeticOperationController";
 
 
     @GetMapping("/discretization/get")
-    public String returnString(
+    public DiscretizerResponseEnum returnString(
             @RequestParam("fileName") String fileName,
             @RequestParam("columnName") String columnToDiscretize,
             @RequestParam("amountOfSections") Integer amountOfSections){
 
-        List<List<String>> testFile = CSVParser.parseCSVtoListArray(fileName);
+        List<List<String>> testFile = CSVParser.parseCSVtoListArray(fileName, PATH);
         Discretizer discretizer = new Discretizer();
         DiscretizerResponseEnum response = discretizer.discretize(testFile,fileName,
                 columnToDiscretize,amountOfSections);
@@ -38,7 +36,28 @@ public class ArithmeticOperationController {
 
 
 
-        return "get test";
+        return response;
+    }
+
+    @GetMapping("/normalization/get")
+    public DiscretizerResponseEnum returnString(
+            @RequestParam("fileName") String fileName,
+            @RequestParam("columnName") String columnToDiscretize){
+
+        List<List<String>> testFile = CSVParser.parseCSVtoListArray(fileName, PATH);
+        Normalizer normalizer = new Normalizer();
+        DiscretizerResponseEnum response = normalizer.normalize(testFile,fileName,
+                columnToDiscretize);
+        if(response.equals(DiscretizerResponseEnum.SUCCESS)){
+            testFile = normalizer.returnList();
+            CSVParser.parseListOfListsToCSV(testFile, PATH+"twojStaryNajebanyXD.csv");
+        }
+
+
+
+        return response;
+
+
     }
 
     @PostMapping("/post")

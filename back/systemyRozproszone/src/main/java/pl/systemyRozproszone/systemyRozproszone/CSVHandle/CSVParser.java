@@ -1,15 +1,20 @@
 package pl.systemyRozproszone.systemyRozproszone.CSVHandle;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static pl.systemyRozproszone.systemyRozproszone.arithmeticOperations.ArithmeticOperationController.PATH;
 
 public class CSVParser {
 
-    public static List<List<String>> parseCSVtoListArray(String fileName){
+
+    public static List<List<String>> parseCSVtoListArray(String fileName, String PATH){
+
+
 
         File newFile = new File(PATH + fileName);
         List<List<String>> parsedList = new ArrayList<>();
