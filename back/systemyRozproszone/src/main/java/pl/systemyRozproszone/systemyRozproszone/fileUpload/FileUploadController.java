@@ -64,8 +64,8 @@ public class FileUploadController {
      * @param fileName filename
      * @return status with file or status alone
      */
-    @GetMapping(value = "/download/{fileName}")
-    public ResponseEntity<Resource> getFile(@PathVariable("fileName") String fileName){
+    @GetMapping(value = "/download/")
+    public ResponseEntity<Resource> getFile(@RequestParam("fileName") String fileName){
 
 
         //kurwa zwraca jako tablice bajtow czyli bezuzyteczny jebaniec
