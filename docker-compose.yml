@@ -4,6 +4,6 @@ services:
     ports:
       - "8080:80"
   back:
-    build: ./back
+    build: ./back/systemyRozproszone/
     ports:
       - "8082:8082"    
