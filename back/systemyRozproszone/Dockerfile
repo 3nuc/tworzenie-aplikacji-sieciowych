@@ -8,6 +8,7 @@ FROM libs AS app
 COPY . /backend
 EXPOSE 8082
 RUN mkdir /backend/log
+RUN mkdir /backend/uploadedFiles
 WORKDIR /backend
 
 RUN mvn install
