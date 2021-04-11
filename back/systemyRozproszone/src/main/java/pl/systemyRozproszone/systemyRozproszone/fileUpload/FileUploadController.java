@@ -70,6 +70,7 @@ public class FileUploadController {
 
         //kurwa zwraca jako tablice bajtow czyli bezuzyteczny jebaniec
         // do plikow .csv trza bedzie dodac superscv by sam budowal z pliku jakiegos
+        System.out.println("filePath: "+PATH+fileName);
         File newFile = new File(PATH + fileName);
         Path path = Paths.get(newFile.getAbsolutePath());
         try {
