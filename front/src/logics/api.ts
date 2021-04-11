@@ -1,10 +1,4 @@
-import {useFetch} from '@vueuse/core'
-const { BASE_URL } = process.env;
+import { createFetch } from '@vueuse/core'
+const BASE_URL = 'http://localhost:8082'
 
-type UseFetchParams= Parameters<typeof useFetch>;
-type UseFetchParamsWithoutUrl = [UseFetchParams[1], UseFetchParams[2]];
-export const useApi = <TResponse>(...params: UseFetchParamsWithoutUrl) => {
-  return useFetch<TResponse>(BASE_URL, ...params)
-}
-
-const a = []
+export const useApi = createFetch({ baseUrl: BASE_URL })
