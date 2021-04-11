@@ -1,6 +1,8 @@
 package pl.systemyRozproszone.systemyRozproszone.fileUpload;
 
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -9,6 +11,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import pl.systemyRozproszone.systemyRozproszone.arithmeticOperations.helperClasses.FileInfo;
+import pl.systemyRozproszone.systemyRozproszone.arithmeticOperations.helperClasses.discretization.DiscretizerResponseEnum;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -118,5 +122,43 @@ public class FileUploadController {
             }
         }
         return fileNames;
+    }
+
+    @GetMapping("/getFileInfo")
+    public String fileData(@RequestParam("fileName") String fileName){
+        File dir = new File(PATH);
+        String result;
+        File fileToCheck = new File("null");
+        File[] directoryListing = dir.listFiles();
+        if (directoryListing != null) {
+            for (File child : directoryListing) {
+                if(child.getName().equals(fileName)){
+                    fileToCheck = child;
+                    break;
+                }
+            }
+        }
+        if(fileToCheck!=null){
+            FileInfo fileInfo = new FileInfo(fileToCheck);
+            int amountOfRows = fileInfo.getRowCount();
+            int amountOfColumns = fileInfo.getColumnCount();
+            List<String> titles = fileInfo.getColumnNames();
+
+            JsonObject response = new JsonObject();
+            response.addProperty("columnCount", amountOfColumns);
+            response.addProperty("rowCount", amountOfRows);
+
+            JsonArray columnNames = new JsonArray();
+            for(String title: titles){
+                columnNames.add(title);
+            }
+            response.add("columnNames", columnNames);
+
+            return response.toString();
+
+        }
+        else{
+            return DiscretizerResponseEnum.FILE_DOESNT_EXIST.toString();
+        }
     }
 }

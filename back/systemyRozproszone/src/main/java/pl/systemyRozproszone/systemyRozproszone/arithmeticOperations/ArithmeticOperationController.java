@@ -32,7 +32,7 @@ public class ArithmeticOperationController {
                 columnToDiscretize,amountOfSections);
         if(response.equals(DiscretizerResponseEnum.SUCCESS)){
             testFile = discretizer.returnList();
-            CSVParser.parseListOfListsToCSV(testFile, PATH+"twojStaryNajebanyXD.csv");
+            CSVParser.parseListOfListsToCSV(testFile, PATH+fileName);
         }
 
 
@@ -51,7 +51,7 @@ public class ArithmeticOperationController {
                 columnToDiscretize);
         if(response.equals(DiscretizerResponseEnum.SUCCESS)){
             testFile = normalizer.returnList();
-            CSVParser.parseListOfListsToCSV(testFile, PATH+"twojStaryNajebanyXD.csv");
+            CSVParser.parseListOfListsToCSV(testFile, PATH+fileName);
         }
 
 
@@ -69,7 +69,7 @@ public class ArithmeticOperationController {
         DiscretizerResponseEnum response = digitizer.digitize(testFile,columnName);
         if(response.equals(DiscretizerResponseEnum.SUCCESS)){
             testFile = digitizer.returnList();
-            CSVParser.parseListOfListsToCSV(testFile, PATH+"twojStaryNajebanyXD.csv");
+            CSVParser.parseListOfListsToCSV(testFile, PATH+fileName);
         }
 
 

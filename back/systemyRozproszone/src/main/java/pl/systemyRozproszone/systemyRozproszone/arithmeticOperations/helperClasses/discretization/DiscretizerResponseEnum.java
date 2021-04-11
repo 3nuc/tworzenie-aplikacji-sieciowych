@@ -6,5 +6,6 @@ public enum DiscretizerResponseEnum {
     ERROR,
     SUCCESS,
     CANNOT_BE_DISCRETIZED,
-    COLUMN_DOESNT_EXIST;
+    COLUMN_DOESNT_EXIST,
+    FILE_DOESNT_EXIST;
 }
