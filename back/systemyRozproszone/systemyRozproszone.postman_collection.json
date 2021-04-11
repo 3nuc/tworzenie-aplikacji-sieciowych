@@ -16,7 +16,7 @@
 						{
 							"key": "file",
 							"type": "file",
-							"src": "/Users/tomaszkoltun/Desktop/Zrzut ekranu 2020-10-28 o 10.48.26.png"
+							"src": "/Users/tomaszkoltun/Downloads/irysy.csv"
 						}
 					]
 				},
@@ -55,11 +55,24 @@
 		},
 		{
 			"name": "getfile",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "fileName",
+							"value": "irysy.csv",
+							"type": "text"
+						}
+					]
+				},
 				"url": {
-					"raw": "http://localhost:8082/download/Zrzut ekranu 2020-10-28 o 10.48.26.png",
+					"raw": "http://localhost:8082/download/",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -67,7 +80,7 @@
 					"port": "8082",
 					"path": [
 						"download",
-						"Zrzut ekranu 2020-10-28 o 10.48.26.png"
+						""
 					]
 				}
 			},
@@ -75,44 +88,156 @@
 		},
 		{
 			"name": "discretization",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "fileName",
+							"value": "irysy.csv",
+							"type": "text"
+						},
+						{
+							"key": "columnName",
+							"value": "sepal_width",
+							"type": "text"
+						},
+						{
+							"key": "amountOfSections",
+							"value": "3",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8082/discretization/get",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"discretization",
+						"get"
+					]
 				}
 			},
 			"response": []
 		},
 		{
 			"name": "normalization",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "fileName",
+							"value": "irysy.csv",
+							"type": "text"
+						},
+						{
+							"key": "columnName",
+							"value": "sepal_width",
+							"type": "text"
+						}
+					]
+				},
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8082/normalization/get",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"normalization",
+						"get"
+					]
 				}
 			},
 			"response": []
 		},
 		{
 			"name": "digitalization",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "fileName",
+							"value": "irysy.csv",
+							"type": "text"
+						},
+						{
+							"key": "columnName",
+							"value": "species",
+							"type": "text"
+						}
+					]
+				},
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8082/digitalization/get",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"digitalization",
+						"get"
+					]
 				}
 			},
 			"response": []
 		},
 		{
 			"name": "getFileProps",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "fileName",
+							"value": "irysy.csv",
+							"type": "text"
+						}
+					]
+				},
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8082/getFileInfo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"getFileInfo"
+					]
 				}
 			},
 			"response": []
