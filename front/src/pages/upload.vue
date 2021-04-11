@@ -1,23 +1,22 @@
 <script setup lang="ts">
 const options = {
   chart: {
-    id: 'vuechart-example'
+    id: 'vuechart-example',
   },
   xaxis: {
-    categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
-  }
-};
+    categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998],
+  },
+}
 const series = [{
   name: 'series-1',
-  data: [30, 40, 45, 50, 49, 60, 70, 91]
-}];
+  data: [30, 40, 45, 50, 49, 60, 70, 91],
+}]
 </script>
 
 <template>
   <el-upload drag>
-     Przeciągnij plik
+    Przeciągnij plik
   </el-upload>
-  <apexchart width="500" type="bar" v-bind="{options, series}"></apexchart>
 </template>
 
 <route lang="yaml">
