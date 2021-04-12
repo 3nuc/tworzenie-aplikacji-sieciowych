@@ -65,7 +65,7 @@
         <el-divider />
       </div>
       <el-table v-if="csvData !== null" :data="csvData" stripe border height="1000">
-        <el-table-column v-for="columnName,index in file.columnNames" :prop="columnName" :label="columnName" :key="index" sortable />
+        <el-table-column v-for="columnName,index in file.columnNames" :key="index" :prop="columnName" :label="columnName" sortable />
       </el-table>
     </template>
   </div>
