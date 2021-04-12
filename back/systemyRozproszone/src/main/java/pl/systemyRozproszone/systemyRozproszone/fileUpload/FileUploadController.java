@@ -64,7 +64,7 @@ public class FileUploadController {
      * @param fileName filename
      * @return status with file or status alone
      */
-    @GetMapping(value = "/download/")
+    @GetMapping(value = "/download")
     public ResponseEntity<Resource> getFile(@RequestParam("fileName") String fileName){
 
 
