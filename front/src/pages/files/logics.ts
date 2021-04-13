@@ -59,7 +59,7 @@ export const useDigitalization = () => {
 
 export const useFileInfo = (args: { fileName: string; immediate: boolean }) => {
   const asyncState = useAsyncState(
-    async() => (await getFileInfo({fileName: args.fileName})).data,
+    async() => (await getFileInfo({ fileName: args.fileName })).data,
     null,
     { immediate: args.immediate },
   )
