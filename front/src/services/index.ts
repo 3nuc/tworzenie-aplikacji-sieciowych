@@ -1,9 +1,9 @@
 import { api } from '~/logics/api'
 export const requestNormalization = (args: {fileName: string; columnName: string; amountOfSections: string}) => api.get('normalization/get', { params: args })
 
-export const requestDiscretization = (args: {fileName: string; columnName: string}) => api.get('discretization/get', { params: { fileName, columnName } })
+export const requestDiscretization = (args: {fileName: string; columnName: string}) => api.get('discretization/get', { params: { fileName: args.fileName, columnName: args.columnName } })
 
-export const requestDigitalization = (args: { fileName: string; columnName: string }) => api.get('digitalization/get', { params: { fileName, columnName } })
+export const requestDigitalization = (args: { fileName: string; columnName: string }) => api.get('digitalization/get', { params: { fileName: args.fileName, columnName: args.columnName } })
 
 export const getListOfFiles = () => api.get('listOfFiles')
 
