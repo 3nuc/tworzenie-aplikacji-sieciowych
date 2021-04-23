@@ -12,26 +12,7 @@ const toggleLocales = () => {
 </script>
 
 <template>
-  <nav class="text-xl mt-6">
-    <router-link class="icon-btn mx-2" to="/" :title="t('button.home')">
-      <vite-icon-carbon-campsite />
-    </router-link>
-
-    <a class="icon-btn mx-2" :title="t('button.toggle_dark')" @click="toggleDark">
-      <vite-icon-carbon-moon v-if="isDark" />
-      <vite-icon-carbon-sun v-else />
-    </a>
-
-    <a class="icon-btn mx-2" :title="t('button.toggle_langs')" @click="toggleLocales">
-      <vite-icon-carbon-language />
-    </a>
-
-    <router-link class="icon-btn mx-2" to="/about" :title="t('button.about')">
-      <vite-icon-carbon-dicom-overlay />
-    </router-link>
-
-    <a class="icon-btn mx-2" rel="noreferrer" href="https://github.com/antfu/vitesse" target="_blank" title="GitHub">
-      <vite-icon-carbon-logo-github />
-    </a>
-  </nav>
+  <div class="text-gray-500 mt-8">
+  Check out https://github.com/adambajguz/typin
+  </div>
 </template>
