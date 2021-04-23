@@ -14,6 +14,10 @@ public class FileInfo {
         this.file = file;
     }
 
+    /**
+     *
+     * @return amount of columns in file
+     */
     public int getColumnCount(){
         int columnCount=0;
         try(BufferedReader br = new BufferedReader(new FileReader(file))){
@@ -34,6 +38,10 @@ public class FileInfo {
         return columnCount;
     }
 
+    /**
+     *
+     * @return returns amount of rows in file
+     */
     public int getRowCount(){
         boolean first = true;
         int rowCount=0;
@@ -57,6 +65,10 @@ public class FileInfo {
         return rowCount;
     }
 
+    /**
+     *
+     * @return returns column names eg 1st line of file
+     */
     public List<String> getColumnNames(){
 
         List<String> columnNames = new ArrayList<>();

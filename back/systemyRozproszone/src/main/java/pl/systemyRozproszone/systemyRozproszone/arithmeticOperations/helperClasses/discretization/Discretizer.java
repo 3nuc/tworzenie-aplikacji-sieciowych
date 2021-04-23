@@ -3,6 +3,8 @@ package pl.systemyRozproszone.systemyRozproszone.arithmeticOperations.helperClas
 import java.util.ArrayList;
 import java.util.List;
 
+import static pl.systemyRozproszone.systemyRozproszone.arithmeticOperations.helperClasses.UsefulInfoFromDatasetReturner.removeQuotes;
+
 public class Discretizer {
 
     List<List<String>> createdList = new ArrayList<>();
@@ -106,7 +108,7 @@ public class Discretizer {
 
             //try to cast it to double, if fails it means that it cannot be like that
             String currentColumnName = testFile.get(i).get(0);
-            if(currentColumnName.equals(columnToDiscretize)){
+            if(removeQuotes(currentColumnName).equals(columnToDiscretize)){
                 
                 try{
                     Double test = Double.parseDouble(testFile.get(i).get(1));
@@ -121,6 +123,8 @@ public class Discretizer {
         
         return true;
     }
+
+
 
     private boolean doesColumnLikeThisExist(List<List<String>> testFile, String columnToDiscretize, Integer amountOfSections) {
 

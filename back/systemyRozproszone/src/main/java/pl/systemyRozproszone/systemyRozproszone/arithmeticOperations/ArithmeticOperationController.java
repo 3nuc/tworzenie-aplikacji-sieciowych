@@ -6,6 +6,7 @@ import pl.systemyRozproszone.systemyRozproszone.CSVHandle.CSVParser;
 import pl.systemyRozproszone.systemyRozproszone.arithmeticOperations.helperClasses.digitization.Digitizer;
 import pl.systemyRozproszone.systemyRozproszone.arithmeticOperations.helperClasses.discretization.Discretizer;
 import pl.systemyRozproszone.systemyRozproszone.arithmeticOperations.helperClasses.discretization.DiscretizerResponseEnum;
+import pl.systemyRozproszone.systemyRozproszone.arithmeticOperations.helperClasses.filters.ResultsPercentageFilter;
 import pl.systemyRozproszone.systemyRozproszone.arithmeticOperations.helperClasses.normalization.Normalizer;
 
 import java.util.List;
@@ -71,8 +72,23 @@ public class ArithmeticOperationController {
             testFile = digitizer.returnList();
             CSVParser.parseListOfListsToCSV(testFile, PATH+fileName);
         }
+        return response;
+    }
 
+    @GetMapping("/percentageFilter")
+    public DiscretizerResponseEnum returnPercentFiltered(
+            @RequestParam("fileName") String fileName,
+            @RequestParam("columnName") String columnName,
+            @RequestParam("percentage") String percentage,
+            @RequestParam("isDesc") Boolean isDesc){
 
+        List<List<String>> testFile = CSVParser.parseCSVtoListArray(fileName, PATH);
+        ResultsPercentageFilter percentageFilter = new ResultsPercentageFilter();
+        DiscretizerResponseEnum response = percentageFilter.filterData(testFile,columnName, percentage, isDesc);
+        if(response.equals(DiscretizerResponseEnum.SUCCESS)){
+            testFile = percentageFilter.returnList();
+            CSVParser.parseListOfListsToCSV(testFile, PATH+fileName);
+        }
 
         return response;
 
