@@ -6,6 +6,7 @@ import pl.systemyRozproszone.systemyRozproszone.CSVHandle.CSVParser;
 import pl.systemyRozproszone.systemyRozproszone.arithmeticOperations.helperClasses.digitization.Digitizer;
 import pl.systemyRozproszone.systemyRozproszone.arithmeticOperations.helperClasses.discretization.Discretizer;
 import pl.systemyRozproszone.systemyRozproszone.arithmeticOperations.helperClasses.discretization.DiscretizerResponseEnum;
+import pl.systemyRozproszone.systemyRozproszone.arithmeticOperations.helperClasses.filters.NumericColumnMinMaxFilter;
 import pl.systemyRozproszone.systemyRozproszone.arithmeticOperations.helperClasses.filters.ResultsPercentageFilter;
 import pl.systemyRozproszone.systemyRozproszone.arithmeticOperations.helperClasses.normalization.Normalizer;
 
@@ -92,6 +93,24 @@ public class ArithmeticOperationController {
 
         return response;
 
+    }
+
+    @GetMapping("/filterMinAndMax")
+    public DiscretizerResponseEnum returnMinMaxFiltered(
+            @RequestParam("fileName") String fileName,
+            @RequestParam("columnName") String columnName,
+            @RequestParam("min") String min,
+            @RequestParam("max") String max){
+
+        List<List<String>> testFile = CSVParser.parseCSVtoListArray(fileName, PATH);
+        NumericColumnMinMaxFilter numericColumnMinMaxFilter = new NumericColumnMinMaxFilter();
+        DiscretizerResponseEnum response = numericColumnMinMaxFilter
+                .filterByMinAndMaxVal(testFile, columnName, min, max);
+        if(response.equals(DiscretizerResponseEnum.SUCCESS)){
+            testFile = numericColumnMinMaxFilter.returnList();
+            CSVParser.parseListOfListsToCSV(testFile, PATH+fileName);
+        }
+        return response;
     }
 
     @PostMapping("/post")
