@@ -5,6 +5,10 @@ public class DistanceHolder {
     private double distance;
     private int id;
 
+
+    public DistanceHolder() {
+    }
+
     public DistanceHolder(double distance, int id) {
         this.distance = distance;
         this.id = id;
