@@ -16,7 +16,7 @@
 						{
 							"key": "file",
 							"type": "file",
-							"src": "/Users/tomaszkoltun/Downloads/irysy.csv"
+							"src": "/Users/tomaszkoltun/Desktop/iriss.csv"
 						}
 					]
 				},
@@ -66,7 +66,7 @@
 					"formdata": [
 						{
 							"key": "fileName",
-							"value": "irysy.csv",
+							"value": "iriss.csv",
 							"type": "text"
 						}
 					]
@@ -99,12 +99,12 @@
 					"formdata": [
 						{
 							"key": "fileName",
-							"value": "irysy.csv",
+							"value": "iriss.csv",
 							"type": "text"
 						},
 						{
 							"key": "columnName",
-							"value": "sepal_width",
+							"value": "sepal.width",
 							"type": "text"
 						},
 						{
@@ -223,7 +223,7 @@
 					"formdata": [
 						{
 							"key": "fileName",
-							"value": "irysy.csv",
+							"value": "iriss.csv",
 							"type": "text"
 						}
 					]
@@ -237,6 +237,100 @@
 					"port": "8082",
 					"path": [
 						"getFileInfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "percentageSplit",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "fileName",
+							"value": "iriss.csv",
+							"type": "text"
+						},
+						{
+							"key": "columnName",
+							"value": "sepal.length",
+							"type": "text"
+						},
+						{
+							"key": "percentage",
+							"value": "30",
+							"type": "text"
+						},
+						{
+							"key": "isDesc",
+							"value": "true",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8082/percentageFilter",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"percentageFilter"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "minAndMax",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "fileName",
+							"value": "iriss.csv",
+							"type": "text"
+						},
+						{
+							"key": "columnName",
+							"value": "petal.length",
+							"type": "text"
+						},
+						{
+							"key": "min",
+							"value": "5",
+							"type": "text"
+						},
+						{
+							"key": "max",
+							"value": "7",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8082/filterMinAndMax",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"filterMinAndMax"
 					]
 				}
 			},
