@@ -3,6 +3,7 @@ package pl.systemyRozproszone.systemyRozproszone.arithmeticOperations;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import pl.systemyRozproszone.systemyRozproszone.CSVHandle.CSVParser;
+import pl.systemyRozproszone.systemyRozproszone.arithmeticOperations.helperClasses.UsefulInfoFromDatasetReturner;
 import pl.systemyRozproszone.systemyRozproszone.arithmeticOperations.helperClasses.digitization.Digitizer;
 import pl.systemyRozproszone.systemyRozproszone.arithmeticOperations.helperClasses.discretization.Discretizer;
 import pl.systemyRozproszone.systemyRozproszone.arithmeticOperations.helperClasses.discretization.DiscretizerResponseEnum;
@@ -28,6 +29,10 @@ public class ArithmeticOperationController {
             @RequestParam("columnName") String columnToDiscretize,
             @RequestParam("amountOfSections") Integer amountOfSections){
 
+        boolean ifFileExists = UsefulInfoFromDatasetReturner.checkIfFileExists(fileName, PATH);
+        if(!ifFileExists){
+            return DiscretizerResponseEnum.FILE_DOESNT_EXIST;
+        }
         List<List<String>> testFile = CSVParser.parseCSVtoListArray(fileName, PATH);
         Discretizer discretizer = new Discretizer();
         DiscretizerResponseEnum response = discretizer.discretize(testFile,fileName,
@@ -47,6 +52,10 @@ public class ArithmeticOperationController {
             @RequestParam("fileName") String fileName,
             @RequestParam("columnName") String columnToDiscretize){
 
+        boolean ifFileExists = UsefulInfoFromDatasetReturner.checkIfFileExists(fileName, PATH);
+        if(!ifFileExists){
+            return DiscretizerResponseEnum.FILE_DOESNT_EXIST;
+        }
         List<List<String>> testFile = CSVParser.parseCSVtoListArray(fileName, PATH);
         Normalizer normalizer = new Normalizer();
         DiscretizerResponseEnum response = normalizer.normalize(testFile,fileName,
@@ -66,6 +75,10 @@ public class ArithmeticOperationController {
             @RequestParam("fileName") String fileName,
             @RequestParam("columnName") String columnName){
 
+        boolean ifFileExists = UsefulInfoFromDatasetReturner.checkIfFileExists(fileName, PATH);
+        if(!ifFileExists){
+            return DiscretizerResponseEnum.FILE_DOESNT_EXIST;
+        }
         List<List<String>> testFile = CSVParser.parseCSVtoListArray(fileName, PATH);
         Digitizer digitizer = new Digitizer();
         DiscretizerResponseEnum response = digitizer.digitize(testFile,columnName);
@@ -83,6 +96,10 @@ public class ArithmeticOperationController {
             @RequestParam("percentage") String percentage,
             @RequestParam("isDesc") Boolean isDesc){
 
+        boolean ifFileExists = UsefulInfoFromDatasetReturner.checkIfFileExists(fileName, PATH);
+        if(!ifFileExists){
+            return DiscretizerResponseEnum.FILE_DOESNT_EXIST;
+        }
         List<List<String>> testFile = CSVParser.parseCSVtoListArray(fileName, PATH);
         ResultsPercentageFilter percentageFilter = new ResultsPercentageFilter();
         DiscretizerResponseEnum response = percentageFilter.filterData(testFile,columnName, percentage, isDesc);
@@ -102,6 +119,10 @@ public class ArithmeticOperationController {
             @RequestParam("min") String min,
             @RequestParam("max") String max){
 
+        boolean ifFileExists = UsefulInfoFromDatasetReturner.checkIfFileExists(fileName, PATH);
+        if(!ifFileExists){
+            return DiscretizerResponseEnum.FILE_DOESNT_EXIST;
+        }
         List<List<String>> testFile = CSVParser.parseCSVtoListArray(fileName, PATH);
         NumericColumnMinMaxFilter numericColumnMinMaxFilter = new NumericColumnMinMaxFilter();
         DiscretizerResponseEnum response = numericColumnMinMaxFilter

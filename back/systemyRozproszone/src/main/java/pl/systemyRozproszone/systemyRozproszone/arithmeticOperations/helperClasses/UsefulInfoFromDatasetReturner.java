@@ -1,5 +1,9 @@
 package pl.systemyRozproszone.systemyRozproszone.arithmeticOperations.helperClasses;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.List;
 
 public class UsefulInfoFromDatasetReturner {
@@ -24,6 +28,20 @@ public class UsefulInfoFromDatasetReturner {
         }
 
         return s;
+    }
+
+    public static boolean checkIfFileExists(String name, String path){
+
+        try{
+            File newFile = new File(path + name);
+            BufferedReader br = new BufferedReader(new FileReader(newFile));
+
+        } catch (FileNotFoundException e) {
+            return false;
+        }
+        return true;
+
+
     }
 
     public static int getColumnId(List<List<String>> dataset, String columnName){
