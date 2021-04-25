@@ -307,7 +307,7 @@
 						},
 						{
 							"key": "columnName",
-							"value": "petal.length",
+							"value": "petal.lengthh",
 							"type": "text"
 						},
 						{
@@ -331,6 +331,76 @@
 					"port": "8082",
 					"path": [
 						"filterMinAndMax"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "closestNeighbours",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "fileName",
+							"value": "iriss.csv",
+							"type": "text"
+						},
+						{
+							"key": "columns",
+							"value": "sepal.length,sepal.width",
+							"type": "text"
+						},
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "decissionColumn",
+							"value": "variety",
+							"type": "text"
+						},
+						{
+							"key": "pointCoordinates",
+							"value": "7.9,3.8",
+							"type": "text"
+						},
+						{
+							"key": "",
+							"value": "3.8",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "findType",
+							"value": "Euklidean",
+							"type": "text"
+						},
+						{
+							"key": "neighbours",
+							"value": "3",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8082/returnNearestNeighbours/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"returnNearestNeighbours",
+						""
 					]
 				}
 			},
