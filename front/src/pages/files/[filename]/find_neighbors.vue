@@ -7,17 +7,17 @@ const form = ref({
   columns: [],
   findType: 'Euklidean',
   neighbours: 2,
+  pointCoordinates: {}
 })
 const formFormatted = computed(() => ({
     ...form.value,
     columns: form.value.columns.join(','),
+    pointCoordinates: Object.values(form.pointCoordinates).join(',') //stupid and doesn't guarantee order
   }))
 
 const { state, isReady } = useFileInfo({fileName: props.filename, immediate: true})
 
 const columns = computed(() => state?.value?.columnNames ?? [])
-
-const coords = ref({})
 </script>
 
 <template>
@@ -37,7 +37,7 @@ const coords = ref({})
       <el-col :span="8"/>
       <el-col :span="8">
         <el-form-item label="Kolumny" required>
-          <el-select multiple v-model="form.columns" :disabled="form.decissionColumn === null" @update:modelValue="coords.value = {}">
+          <el-select multiple v-model="form.columns" :disabled="form.decissionColumn === null" @update:modelValue="form.pointCoordinates.value = {}">
             <el-option 
               v-for="column in columns"
               :key="column"
@@ -57,8 +57,8 @@ const coords = ref({})
               :label="`Koordynat - ${columnName}`" required >
               <el-input-number 
                :precision="2" 
-               :modelValue="coords.value[columnName] ?? 0" 
-               @update:modelValue="newValue => { coords.value[columnName] = newValue }"
+               :modelValue="form.pointCoordinates.value[columnName] ?? 0" 
+               @update:modelValue="newValue => { form.pointCoordinates.value[columnName] = newValue }"
               />
             </el-form-item>  
           </el-form>
