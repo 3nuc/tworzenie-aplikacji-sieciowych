@@ -25,7 +25,7 @@ public class NearestNeighborsController {
 
     public static String TAG = "NearestNeighborsController";
 
-    @GetMapping("/returnNearestNeighbours/")
+    @GetMapping("/returnNearestNeighbours")
     public String returnString(
             @RequestParam("fileName") String fileName,
             @RequestParam("columns") String [] columns,
