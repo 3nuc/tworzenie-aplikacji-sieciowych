@@ -1,7 +1,10 @@
 <script setup>
 import {defineProps, ref, computed} from 'vue'
+import {useAsyncState} from '@vueuse/core'
 import { useFileInfo } from '~/pages/files/logics'
+import { getNeighbors } from '~/services'
 const props = defineProps(['filename'])
+
 const form = ref({
   decissionColumn: null,
   columns: [],
@@ -9,15 +12,25 @@ const form = ref({
   neighbours: 2,
   pointCoordinates: {}
 })
+
 const formFormatted = computed(() => ({
     ...form.value,
+    fileName: props.filename,
     columns: form.value.columns.join(','),
-    pointCoordinates: Object.values(form.pointCoordinates).join(',') //stupid and doesn't guarantee order
+    pointCoordinates: Object.values(form.value.pointCoordinates).join(',')
   }))
 
-const { state, isReady } = useFileInfo({fileName: props.filename, immediate: true})
+const { state, isReady } = useFileInfo({fileName: props.filename, immediate: true});
 
 const columns = computed(() => state?.value?.columnNames ?? [])
+
+const { state: neighborData, execute: executeNeighbors } = useAsyncState(async () => (await getNeighbors(formFormatted.value).data), null, {immediate: false})
+
+const sendNeighbors = () => {
+  //console.log(formFormatted.value)
+  console.log(Object.values(form.value.pointCoordinates));
+  executeNeighbors();
+}
 </script>
 
 <template>
@@ -37,7 +50,7 @@ const columns = computed(() => state?.value?.columnNames ?? [])
       <el-col :span="8"/>
       <el-col :span="8">
         <el-form-item label="Kolumny" required>
-          <el-select multiple v-model="form.columns" :disabled="form.decissionColumn === null" @update:modelValue="form.pointCoordinates.value = {}">
+          <el-select multiple v-model="form.columns" :disabled="form.decissionColumn === null" @update:modelValue="form.pointCoordinates = {}">
             <el-option 
               v-for="column in columns"
               :key="column"
@@ -57,8 +70,8 @@ const columns = computed(() => state?.value?.columnNames ?? [])
               :label="`Koordynat - ${columnName}`" required >
               <el-input-number 
                :precision="2" 
-               :modelValue="form.pointCoordinates.value[columnName] ?? 0" 
-               @update:modelValue="newValue => { form.pointCoordinates.value[columnName] = newValue }"
+               :modelValue="form.pointCoordinates[columnName] ?? 0" 
+               @update:modelValue="newValue => { form.pointCoordinates[columnName] = newValue }"
               />
             </el-form-item>  
           </el-form>
@@ -81,7 +94,7 @@ const columns = computed(() => state?.value?.columnNames ?? [])
     </el-radio-group>
   </el-form-item> 
   <el-form-item>
-    <el-button type="primary">Wyślij</el-button>
+    <el-button type="primary" @click="sendNeighbors">Wyślij</el-button>
   </el-form-item>
 </el-form>
 </template>
