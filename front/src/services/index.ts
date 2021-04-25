@@ -10,3 +10,15 @@ export const getListOfFiles = () => api.get('listOfFiles')
 export const getFileInfo = (args: {fileName: string}) => api.get('getFileInfo', { params: args })
 
 export const getFileCsv = (args: {fileName: string}) => api.get('download', { params: args })
+
+interface NeighborsArgs {
+  columns: string;
+  decissionColumn: string;
+  pointCoordinates: string;
+  findType: string;
+}
+
+//rip consistent naming
+export const getNeighbors = (args: NeighborsArgs) =>
+  api.get('returnNearestNeighbours', { params: {...args, returnAllColumns: false }})
+
