@@ -11,6 +11,7 @@ import { createI18n } from 'vue-i18n'
 import App from './App.vue'
 import ElementPlus from 'element-plus'
 import { UserModule } from '~/types'
+import VueApexChart from 'vue3-apexcharts'
 
 const routes = setupLayouts(generatedRoutes)
 
@@ -32,7 +33,7 @@ const i18n = createI18n({
   locale: 'en',
   messages,
 })
-
+console.log(JSON.stringify(VueApexChart))
 const head = createHead();
 // https://github.com/antfu/vite-ssg
 export const app = createApp(App);
@@ -40,5 +41,6 @@ app.use(router)
 app.use(ElementPlus)
 app.use(head)
 app.use(i18n)
+app.use(VueApexChart)
 
 app.mount('#app')

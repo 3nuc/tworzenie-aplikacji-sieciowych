@@ -111,6 +111,9 @@ export default defineConfig({
       'vue',
       'vue-router',
       '@vueuse/core',
+      'vue3-apexcharts',
+      'apexcharts',
+      'plotly.js-dist'
     ],
     exclude: [
       'vue-demi',

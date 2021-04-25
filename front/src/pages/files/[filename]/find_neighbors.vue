@@ -4,6 +4,7 @@ import {useAsyncState} from '@vueuse/core'
 import { useFileInfo } from '~/pages/files/logics'
 import { getNeighbors } from '~/services'
 import ApexChart from 'vue3-apexcharts'
+
 const props = defineProps(['filename'])
 
 const form = ref({
@@ -17,8 +18,9 @@ const form = ref({
 const formFormatted = computed(() => ({
     ...form.value,
     fileName: props.filename,
-    columns: form.value.columns.join(','),
-    pointCoordinates: Object.values(form.value.pointCoordinates).join(',')
+    columns: form.value.columns.join(',').replaceAll('"', ''),
+    pointCoordinates: Object.values(form.value.pointCoordinates).join(','),
+    decissionColumn: form.value.decissionColumn.replaceAll('"', '')
   }))
 
 const { state, isReady } = useFileInfo({fileName: props.filename, immediate: true});
@@ -30,6 +32,21 @@ const { state: neighborData, execute: executeNeighbors } = useAsyncState(async (
 const sendNeighbors = () => {
   executeNeighbors();
 }
+
+const neighborDataFormatted = computed(() => {
+  if(!neighborData.value) return null;
+  const seriesNames = new Set(...neighborData.map((item) => item[neighborData[0].length-1]));
+  const seriesObjects = seriesNames.map(name => ({name, data: []}));
+
+  const filledSeriesObjects = neighborData.forEach((item) => {
+    const coords = item.slice(0, item.length-1)
+    const seriesName = item.at(-1)
+    const seriesBelongedTo = seriesObjects.find(({name}) => name === seriesName);
+    seriesBelongedTo.data.push(coords)
+  })
+
+  return seriesObjects;
+})
 
 const chartOptions = {
   chart: {id: 'vuechart-example'},
@@ -102,6 +119,6 @@ const series = [ { name: "series-1", data: [30, 40, 35, 50, 49, 60, 70, 91], }, 
   <el-form-item>
     <el-button type="primary" @click="sendNeighbors">Wyślij</el-button>
   </el-form-item>
-<apex-chart :options="chartOptions" :series="series"></apex-chart>
+  <apex-chart type="scatter" width="500" :options="chartOptions" :series="series"></apex-chart>
 </el-form>
 </template>

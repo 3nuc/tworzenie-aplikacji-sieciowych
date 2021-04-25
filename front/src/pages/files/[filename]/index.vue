@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { defineProps, ref, computed, reactive, onMounted } from 'vue'
 import { useDigitalization, useDiscretizaiton, useFileCsv, useNormalization, useFileInfo } from '~/pages/files/logics'
+import { useRouter } from 'vue-router'
 
 const props = defineProps({
   filename: { type: String, required: true },
@@ -45,6 +46,8 @@ const columnOptions = computed(() => {
   return logics.fileInfo.columnNames?.map(columnName => ({ label: columnName, value: columnName })) ?? []
 })
 
+const router = useRouter();
+
 </script>
 
 <template>
@@ -59,6 +62,7 @@ const columnOptions = computed(() => {
             <div>Liczba kolumn: <span class="text-2xl font-bold">{{ logics.fileInfo.state.value.columnCount }}</span></div>
             <div>Liczba rzędów: <span class="text-2xl font-bold">{{ logics.fileInfo.state.value.rowCount }}</span></div>
           </div>
+          <el-button @click="router.push({to: 'find_neighbors',append: true})">Przejdź do wykrywania sąsiadów</el-button>
         </div>
         <el-divider />
         <el-tabs v-model="tab" class="text-white mt-6 mb-6" tab-position="left">
