@@ -16,6 +16,8 @@ const formFormatted = computed(() => ({
 const { state, isReady } = useFileInfo({fileName: props.filename, immediate: true})
 
 const columns = computed(() => state?.value?.columnNames ?? [])
+
+const coords = ref({})
 </script>
 
 <template>
@@ -32,9 +34,10 @@ const columns = computed(() => state?.value?.columnNames ?? [])
   </el-form-item>
   <el-form-item>
     <el-row>
-      <el-col :span="11">
-        <el-form-item label="Kolumny">
-          <el-select multiple v-model="form.columns">
+      <el-col :span="8"/>
+      <el-col :span="8">
+        <el-form-item label="Kolumny" required>
+          <el-select multiple v-model="form.columns" :disabled="form.decissionColumn === null" @update:modelValue="coords.value = {}">
             <el-option 
               v-for="column in columns"
               :key="column"
@@ -45,13 +48,18 @@ const columns = computed(() => state?.value?.columnNames ?? [])
           </el-select>
         </el-form-item>
       </el-col>
-      <el-col v-if="form.columns.length" :span="11">
-        <el-card>
+      <el-col :span="8">
+        <el-card v-if="form.columns.length">
           <el-form label-position="left">
             <el-form-item 
-              v-for="(columnName,index) in form.columns"
-              :label="`${columnName}`" required v-if="form.columns.length">
-               <el-input-number />
+              :key="columnName"
+              v-for="columnName in form.columns"
+              :label="`Koordynat - ${columnName}`" required >
+              <el-input-number 
+               :precision="2" 
+               :modelValue="coords.value[columnName] ?? 0" 
+               @update:modelValue="newValue => { coords.value[columnName] = newValue }"
+              />
             </el-form-item>  
           </el-form>
         </el-card>
