@@ -61,7 +61,7 @@ public abstract class Distance {
         return nearestNeighbours;
     }
 
-    private List<String> getRow(List<List<String>> dataset, int rowInd){
+    public List<String> getRow(List<List<String>> dataset, int rowInd){
         List<String> row = new ArrayList<>();
         for(int i=0; i<dataset.size(); i++){
             row.add(dataset.get(i).get(rowInd));

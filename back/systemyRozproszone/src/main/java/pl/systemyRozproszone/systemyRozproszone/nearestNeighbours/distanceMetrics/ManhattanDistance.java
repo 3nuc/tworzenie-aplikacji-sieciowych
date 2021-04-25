@@ -16,14 +16,14 @@ public class ManhattanDistance extends Distance {
         super.calculateDistance();
         //iterate through every row
         for(int i=1; i<data.get(0).size();i++){
-            distances.add(calculateManhattanDistance(pointCoordinates,data.get(i), i));
+            distances.add(calculateManhattanDistance(pointCoordinates,getRow(data,i),  i, columnId));
         }
     }
 
-    private DistanceHolder calculateManhattanDistance(List<Double> pointCoordinates, List<String> row, int index) {
+    private DistanceHolder calculateManhattanDistance(List<Double> pointCoordinates, List<String> row, int index, int columnId) {
         List<Double> values = new ArrayList<>();
         for(int i =0 ; i< row.size(); i++) {
-            if (i != index) {
+            if (i != columnId) {
                 values.add(Double.parseDouble(row.get(i)));
             }
         }
