@@ -32,6 +32,7 @@ public class NearestNeighborsController {
             @RequestParam("decissionColumn") String decissionColumn,
             @RequestParam("pointCoordinates") String [] coordinates,
             @RequestParam("findType") String findType,
+            @RequestParam("returnAllColumns") Boolean returnAll,
             @RequestParam("neighbours") Integer amountOfNeighbours){
 
         boolean ifFileExists = UsefulInfoFromDatasetReturner.checkIfFileExists(fileName, PATH);
@@ -68,7 +69,7 @@ public class NearestNeighborsController {
         }
 
         distance.calculateDistance();
-        List<List<String>> neighbours = distance.returnNearestNeighbours(amountOfNeighbours, data);
+        List<List<String>> neighbours = distance.returnNearestNeighbours(amountOfNeighbours, data, returnAll);
 
 
 //        JsonObject response = new JsonObject();
