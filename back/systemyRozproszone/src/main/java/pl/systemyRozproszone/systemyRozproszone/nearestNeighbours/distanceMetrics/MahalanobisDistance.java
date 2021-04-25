@@ -19,10 +19,11 @@ public class MahalanobisDistance extends Distance{
         //iterate through every row
         double distanceFromMean = calculateMahalanobisDistance(pointCoordinates);
         for(int i=1;i<data.get(0).size(); i++) {
+            List<String> row = getRow(data,i);
             List<Double> pointCoords = new ArrayList<>();
-            for(int j=0; j<data.get(i).size(); j++){
+            for(int j=0; j<row.size(); j++){
                 if(j!=columnId){
-                    pointCoords.add(Double.valueOf(data.get(i).get(j)));
+                    pointCoords.add(Double.valueOf(row.get(j)));
                 }
             }
             DistanceHolder d = new DistanceHolder();
@@ -37,7 +38,7 @@ public class MahalanobisDistance extends Distance{
 
         List<Double> meanColumnValues = new ArrayList<>();
         List<Double> givenMinusMeanValues = new ArrayList<>();
-        double[][] valuesMatrix = new double[data.get(0).size()-1][data.size()];
+        double[][] valuesMatrix = new double[data.get(0).size()-1][data.size()-1];
 
         //providedValues = pointCoordinates
         //rows - ilosc rzedow
@@ -47,9 +48,9 @@ public class MahalanobisDistance extends Distance{
         //calculate mean for each column
         for(int i=0; i< pointCoordinates.size(); i++) {
             double sumInColumn =0;
-            for(int j=1; j<data.get(0).size()-1; j++) {
-                sumInColumn+=Double.valueOf(data.get(j).get(i));
-                valuesMatrix[j][i]=Double.valueOf(data.get(j).get(i));
+            for(int j=0; j<data.get(0).size()-1; j++) {
+                sumInColumn+=Double.valueOf(data.get(i).get(j+1));
+                valuesMatrix[j][i]=Double.valueOf(data.get(i).get(j+1));
             }
             meanColumnValues.add(sumInColumn/(data.get(0).size()-1));
         }
