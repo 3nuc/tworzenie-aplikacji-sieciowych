@@ -12,6 +12,7 @@ public abstract class Distance {
     public List<Double> pointCoordinates;
     public List<DistanceHolder> distances;
     public List<List<String>> data;
+    public List<List<String>> bareboneData;
     public int columnId;
 
 
@@ -44,12 +45,12 @@ public abstract class Distance {
 
     public void calculateDistance(){};
 
-    public List<List<String>> returnNearestNeighbours(int amountOfNeighbours){
+    public List<List<String>> returnNearestNeighbours(int amountOfNeighbours, List<List<String>> oldData){
         List<List<String>> nearestNeighbours = new ArrayList<>();
         distances.sort(new DistanceComparator());
         for(int i=0 ; i<amountOfNeighbours; i++){
 //            nearestNeighbours.add(data.get(distances.get(i).getId()));
-            nearestNeighbours.add(getRow(data, distances.get(i).getId()));
+            nearestNeighbours.add(getRow(oldData, distances.get(i).getId()));
         }
         return nearestNeighbours;
     }

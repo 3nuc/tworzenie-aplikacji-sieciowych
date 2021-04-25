@@ -68,7 +68,7 @@ public class NearestNeighborsController {
         }
 
         distance.calculateDistance();
-        List<List<String>> neighbours = distance.returnNearestNeighbours(amountOfNeighbours);
+        List<List<String>> neighbours = distance.returnNearestNeighbours(amountOfNeighbours, data);
 
 
 //        JsonObject response = new JsonObject();
