@@ -3,6 +3,7 @@ import {defineProps, ref, computed} from 'vue'
 import {useAsyncState} from '@vueuse/core'
 import { useFileInfo } from '~/pages/files/logics'
 import { getNeighbors } from '~/services'
+import ApexChart from 'vue3-apexcharts'
 const props = defineProps(['filename'])
 
 const form = ref({
@@ -27,10 +28,15 @@ const columns = computed(() => state?.value?.columnNames ?? [])
 const { state: neighborData, execute: executeNeighbors } = useAsyncState(async () => (await getNeighbors(formFormatted.value).data), null, {immediate: false})
 
 const sendNeighbors = () => {
-  //console.log(formFormatted.value)
-  console.log(Object.values(form.value.pointCoordinates));
   executeNeighbors();
 }
+
+const chartOptions = {
+  chart: {id: 'vuechart-example'},
+  xaxis: { categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998] },
+}
+const series = [ { name: "series-1", data: [30, 40, 35, 50, 49, 60, 70, 91], }, ];
+
 </script>
 
 <template>
@@ -96,5 +102,6 @@ const sendNeighbors = () => {
   <el-form-item>
     <el-button type="primary" @click="sendNeighbors">Wyślij</el-button>
   </el-form-item>
+<apex-chart :options="chartOptions" :series="series"></apex-chart>
 </el-form>
 </template>
