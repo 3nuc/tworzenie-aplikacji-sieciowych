@@ -48,9 +48,18 @@ public abstract class Distance {
         List<List<String>> nearestNeighbours = new ArrayList<>();
         distances.sort(new DistanceComparator());
         for(int i=0 ; i<amountOfNeighbours; i++){
-            nearestNeighbours.add(data.get(distances.get(i).getId()));
+//            nearestNeighbours.add(data.get(distances.get(i).getId()));
+            nearestNeighbours.add(getRow(data, distances.get(i).getId()));
         }
         return nearestNeighbours;
+    }
+
+    private List<String> getRow(List<List<String>> dataset, int rowInd){
+        List<String> row = new ArrayList<>();
+        for(int i=0; i<dataset.size(); i++){
+            row.add(dataset.get(i).get(rowInd));
+        }
+        return row;
     }
 
 
