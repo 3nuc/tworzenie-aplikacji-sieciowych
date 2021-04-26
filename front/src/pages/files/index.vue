@@ -5,7 +5,7 @@ import { useFileList } from './logics'
 const router = useRouter()
 
 // const { data: files, isFetching, error } = useApi('listOfFiles').get().json<string[]>()
-const { state: files, isReady } = useFileList({immediate: false});
+const { state: files, isReady } = useFileList()
 const isEmpty = computed(() => files.value?.length === 0)
 </script>
 
