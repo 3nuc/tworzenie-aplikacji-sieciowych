@@ -32,24 +32,25 @@ const { state: neighborData, execute: executeNeighbors } = useAsyncState(async (
 const sendNeighbors = async() => {
   await executeNeighbors();
   console.log(neighborData.value)
+  correctSeries.value = recalculateSeries();
 }
 
-const series = computed(() => {
+const recalculateSeries = () => {
   if(neighborData.value === null) return null;
   const seriesNames = [...new Set(neighborData.value.map(item => item.at(-1)))];
   const seriesObjects = seriesNames.map(name => ({name, data: []}));
 
   console.log(seriesNames, seriesObjects)
 
-  const filledSeriesObjects = neighborData.value.forEach((item) => {
+  neighborData.value.forEach((item) => {
     const coords = item.slice(0, item.length-1)
     const seriesName = item.at(-1)
     const seriesBelongedTo = seriesObjects.find(({name}) => name === seriesName);
     seriesBelongedTo.data.push(coords)
   })
-  correctSeries.value = seriesObjects;
+  seriesObjects.push({name: 'Podany przez użytkownika', data: [formFormatted.value.pointCoordinates.split(',')]})
   return seriesObjects;
-})
+}
 
 const options = {
   chart: { type: 'scatter', height: 300, zoom: {enabled: true, type: 'xy'}}, 
