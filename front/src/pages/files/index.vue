@@ -10,41 +10,26 @@ const isEmpty = computed(() => files.value?.length === 0)
 </script>
 
 <template>
-  <div class="grid grid-cols-3">
-    <div class="col-start-2">
-      <div class="text-4xl mb-8 text-left color-gray-2">
-        Lista plików:
-      </div>
-      <el-skeleton :loading="!isReady">
-        <template #template>
-          <el-card>
-            <template #header>
-              <div class="text-4xl">
-                Proszę czekać...
-              </div>
-            </template>
-          </el-card>
-        </template>
-        <el-card v-for="file in files" :key="file">
-          <template #header>
-            <div class="flex justify-between">
-              <span class="text-4xl sm:mr-5">
-                {{ file }}
-              </span>
-              <el-button @click="router.push(`/files/${file}`)">
-                Otwórz
-              </el-button>
-            </div>
-          </template>
-        </el-card>
-      </el-skeleton>
-      <el-empty v-if="isEmpty">
-        <router-link to="/upload">
-          <el-link class="text-3xl" type="warning">
-            Brak plików. Kliknij aby przejść do wysyłania
-          </el-link>
-        </router-link>
-      </el-empty>
+  <div class="inline-flex justify-center flex-col divide-y-2 divide-solid divide-gray-500">
+    <h1 class="text-4xl mb-4 ">
+      Dostępne pliki
+    </h1>
+    <div class="flex flex-row">
+      <button
+        v-for="file in files"
+        :key="file"
+        class="group text-2xl inline-flex items-center h-18 m-3 p-6 shadow hover:shadow-lg transition-shadow transition-all rounded-lg bg-white hover:bg-gradient-to-r hover:bg-red-400 hover:ring-purple-400 hover:ring-opacity-35 hover:ring-4 hover:text-white"
+        @click="router.push(`/files/${file}`)"
+      >
+        <vite-icon-carbon-dashboard class="group-hover:animate-bounce self-start mr-2" /> {{ file }}
+      </button>
     </div>
+    <el-empty v-if="isEmpty">
+      <router-link to="/upload">
+        <el-link class="text-3xl" type="warning">
+          Brak plików. Kliknij aby przejść do wysyłania
+        </el-link>
+      </router-link>
+    </el-empty>
   </div>
 </template>
