@@ -2,6 +2,7 @@
 import { defineProps, ref, computed, reactive, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useDigitalization, useDiscretizaiton, useFileCsv, useNormalization, useFileInfo } from '~/pages/files/logics'
+import FancyCard from '~/components/FancyCard.vue'
 
 const props = defineProps({
   filename: { type: String, required: true },
@@ -55,15 +56,19 @@ const router = useRouter()
     <template v-if="isReady">
       <div class="grid grid-cols-1 ">
         <div class="grid grid-cols-3">
-          <div class="col-span-2 bg-white bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 text-white rounded-md">
-            <div class="text-6xl text-white font-bold mb-8 mt-8">
-              {{ filename }}
-            </div>
-            <div>Liczba kolumn: <span class="text-2xl font-bold">{{ logics.fileInfo.state.value.columnCount }}</span></div>
-            <div class="mb-8">Liczba rzędów: <span class="text-2xl font-bold">{{ logics.fileInfo.state.value.rowCount }}</span></div>
-            <el-button @click="router.push({path: `/files/${props.filename}/find_neighbors/`, append: true})">
-              Przejdź do wykrywania sąsiadów
-            </el-button>
+          <div class="col-span-2">
+            <FancyCard>
+              <div class="text-6xl text-white font-bold">
+                {{ filename }}
+              </div>
+              <div>Liczba kolumn: <span class="text-2xl font-bold">{{ logics.fileInfo.state.value.columnCount }}</span></div>
+              <div class="mb-8">
+                Liczba rzędów: <span class="text-2xl font-bold">{{ logics.fileInfo.state.value.rowCount }}</span>
+              </div>
+              <el-button @click="router.push({path: `/files/${props.filename}/find_neighbors/`, append: true})">
+                Przejdź do wykrywania sąsiadów
+              </el-button>
+            </FancyCard>
           </div>
           <div>
             <el-tabs v-model="tab" tab-position="left">
