@@ -122,9 +122,18 @@ const router = useRouter()
         </div>
         <el-divider />
       </div>
-      <el-table v-if="logics.fileCsv.isReady.value" :data="logics.fileCsv.state.value" stripe border height="1000">
-        <el-table-column v-for="columnName,index in logics.fileInfo.state.value.columnNames" :key="index" :prop="columnName" :label="columnName" sortable />
-      </el-table>
+      <table v-if="logics.fileCsv.isReady.value" class="table table-auto w-full border-collapse border-solid border-1 rounded-lg">
+        <thead>
+          <tr>
+            <th v-for="columnName,index in logics.fileInfo.state.value.columnNames" v-text="columnName" />
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="row in logics.fileCsv.state.value">
+            <td v-for="cell in Object.values(row)" v-text="cell" />
+          </tr>
+        </tbody>
+      </table>
     </template>
     <div v-else>
       Ładowanie...
