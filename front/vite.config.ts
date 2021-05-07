@@ -99,16 +99,20 @@ export default defineConfig({
     }),
   ],
   // https://github.com/antfu/vite-ssg
+  /*
   ssgOptions: {
     script: 'async',
     formatting: 'minify',
   },
+  */
 
   optimizeDeps: {
     include: [
       'vue',
       'vue-router',
       '@vueuse/core',
+      'vue3-apexcharts',
+      'apexcharts',
     ],
     exclude: [
       'vue-demi',
