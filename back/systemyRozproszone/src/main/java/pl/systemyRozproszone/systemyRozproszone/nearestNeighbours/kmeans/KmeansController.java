@@ -1,6 +1,9 @@
 package pl.systemyRozproszone.systemyRozproszone.nearestNeighbours.kmeans;
 
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.stat.correlation.Covariance;
@@ -37,6 +40,7 @@ public class KmeansController {
     List<NameToNumberPair> pairs;
     double correctHitsPercentage;
     double correctHits;
+    int decission=-1;
     List<Integer> correctlyPredictedRows;
     List<Integer> incorrectlyPredicredRows;
 
@@ -48,12 +52,13 @@ public class KmeansController {
             @RequestParam("fileName") String fileName,
             @RequestParam("columns") String [] columns,
             @RequestParam("decissionColumn") String decissionColumn,
-            @RequestParam("pointCoordinates") String [] coordinates,
             @RequestParam("findType") String findType,
-            @RequestParam("returnAllColumns") Boolean returnAll,
-            @RequestParam("neighbours") Integer amountOfNeighbours){
+            @RequestParam("returnAllColumns") Boolean returnAll){
 
-
+        decission = parseDecission(findType);
+        if(decission == -1){
+            return DiscretizerResponseEnum.WRONG_PARAMETER_VALUE.toString();
+        }
         correctlyPredictedRows = new ArrayList<>();
         incorrectlyPredicredRows = new ArrayList<>();
         centroids = new ArrayList<>();
@@ -82,7 +87,7 @@ public class KmeansController {
 
         while(isChanging) {
             System.out.println("relocate "+counter);
-            assignDistanceFromCentroids(3);
+            assignDistanceFromCentroids(decission);
             isChanging = relocateCentroid();
             counter++;
         }
@@ -98,12 +103,69 @@ public class KmeansController {
         matchValuesToInput();
 
 
-    // porownac z pierwotnym datasetem
+        JsonObject response = new JsonObject();
+
+        if(returnAll){
+            JsonArray dataset = new JsonArray();
+
+            JsonArray titleRow = new JsonArray();
+            for(int i=0; i<listOfCols.size(); i++){
+                titleRow.add(listOfCols.get(i).getTitle());
+            }
+            dataset.add(titleRow);
+
+            for(int i=0;i<listOfCols.get(0).getContents().size(); i++){
+
+                JsonArray dataRow = new JsonArray();
+                for(int j=0; j<listOfCols.size(); j++){
+                    dataRow.add(listOfCols.get(j).getContents().get(j));
+                }
+                dataset.add(dataRow);
+            }
+            response.add("dataset", dataset);
+        }
+
+        JsonObject properties = new JsonObject();
+
+        JsonArray correctlyPredictedRowsIds = new JsonArray();
+        for(int i=0; i<correctlyPredictedRows.size();i++){
+            correctlyPredictedRowsIds.add(correctlyPredictedRows.get(i));
+        }
+
+        JsonArray incorrectlyPredictedRowsIds = new JsonArray();
+        for(int i=0; i<incorrectlyPredicredRows.size();i++){
+            incorrectlyPredictedRowsIds.add(incorrectlyPredicredRows.get(i));
+        }
+        JsonObject hits = new JsonObject();
+        hits.addProperty("hits", correctHits);
+
+        JsonObject hitsPercentage = new JsonObject();
+        hitsPercentage.addProperty("hitsPercentage", correctHitsPercentage);
+
+        properties.add("correctlyPredictedRowIDS", correctlyPredictedRowsIds);
+        properties.add("incorrectlyPredictedRowIDS", incorrectlyPredictedRowsIds);
+        properties.add("correctlyPredictedAmount", hits);
+        properties.add("hitsPercentage", hitsPercentage);
+
+        response.add("properties", properties);
 
 
 
 
-        return "1";
+
+        return response.toString();
+    }
+
+    private int parseDecission(String findType) {
+        if(findType.equals("Euklidean")){
+            return 1;
+        }
+        else if(findType.equals("Manhattan")){
+            return 3;
+        }
+        else{
+            return -1;
+        }
     }
 
 

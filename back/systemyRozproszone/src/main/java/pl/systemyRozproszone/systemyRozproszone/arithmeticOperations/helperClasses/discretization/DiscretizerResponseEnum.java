@@ -5,6 +5,7 @@ public enum DiscretizerResponseEnum {
     COLUMN_EXIST,
     ERROR,
     SUCCESS,
+    WRONG_PARAMETER_VALUE,
     CANNOT_BE_DISCRETIZED,
     CANNOT_SELECT_MIN_AND_MAX,
     COLUMN_DOESNT_EXIST,
