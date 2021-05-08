@@ -1,6 +1,9 @@
 package pl.systemyRozproszone.systemyRozproszone.nearestNeighbours.kmeans;
 
 
+import org.apache.commons.math3.linear.MatrixUtils;
+import org.apache.commons.math3.linear.RealMatrix;
+import org.apache.commons.math3.stat.correlation.Covariance;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,7 +16,9 @@ import pl.systemyRozproszone.systemyRozproszone.nearestNeighbours.distanceMetric
 import pl.systemyRozproszone.systemyRozproszone.nearestNeighbours.kmeans.helpers.DataColumn;
 import pl.systemyRozproszone.systemyRozproszone.nearestNeighbours.kmeans.helpers.DataRowWithCentroidID;
 import pl.systemyRozproszone.systemyRozproszone.nearestNeighbours.kmeans.helpers.Dot;
+import pl.systemyRozproszone.systemyRozproszone.nearestNeighbours.kmeans.helpers.NameToNumberPair;
 
+import javax.naming.Name;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -29,6 +34,11 @@ public class KmeansController {
     List<DataRowWithCentroidID> centroids;
     List<DataRowWithCentroidID> rows;
     List <DataColumn> listOfCols;
+    List<NameToNumberPair> pairs;
+    double correctHitsPercentage;
+    double correctHits;
+    List<Integer> correctlyPredictedRows;
+    List<Integer> incorrectlyPredicredRows;
 
     public static final String TAG = "KMeansController";
 
@@ -43,8 +53,12 @@ public class KmeansController {
             @RequestParam("returnAllColumns") Boolean returnAll,
             @RequestParam("neighbours") Integer amountOfNeighbours){
 
+
+        correctlyPredictedRows = new ArrayList<>();
+        incorrectlyPredicredRows = new ArrayList<>();
         centroids = new ArrayList<>();
         rows = new ArrayList<>();
+        pairs = new ArrayList<>();
         boolean ifFileExists = UsefulInfoFromDatasetReturner.checkIfFileExists(fileName, PATH);
         if(!ifFileExists){
             return DiscretizerResponseEnum.FILE_DOESNT_EXIST.toString();
@@ -68,12 +82,20 @@ public class KmeansController {
 
         while(isChanging) {
             System.out.println("relocate "+counter);
-            assignDistanceFromCentroids(1);
-            isChanging =relocateCentroid();
+            assignDistanceFromCentroids(3);
+            isChanging = relocateCentroid();
             counter++;
         }
 
         DataColumn dc = new DataColumn();
+        dc.setTitle("kmeansVal");
+        List<String> values = new ArrayList<>();
+        for(int i=0;i<rows.size();i++) {
+            values.add(String.valueOf(rows.get(i).getCentroidId()));
+        }
+        dc.setContents(values);
+        listOfCols.add(dc);
+        matchValuesToInput();
 
 
     // porownac z pierwotnym datasetem
@@ -82,6 +104,127 @@ public class KmeansController {
 
 
         return "1";
+    }
+
+
+    private void matchValuesToInput() {
+        DataColumn classColumn= listOfCols.get(listOfCols.size()-2);
+        DataColumn predictedColumn= listOfCols.get(listOfCols.size()-1);
+
+        for(int i=0; i<pairs.size(); i++){
+            //get name of element and match the most matching elemetn to it
+            String name  = pairs.get(i).getName();
+
+            //count occurences of each number and decide which was the best match
+            int []occurences = new int[amountOfDecisionClasses];
+
+            for(int j =0 ; j< rows.size(); j++){
+                if(classColumn.getContents().get(j).equals(name)){
+                    occurences[Integer.valueOf(predictedColumn.getContents().get(j))]++;
+                }
+            }
+            System.out.println("counted occurences of "+i+" th element");
+
+//get max value from the occurences arr and match it to the string name
+            int max=0;
+            int index=-1;
+            for(int x=0;x<occurences.length;x++) {
+                if(occurences[x]>max) {
+                    max=occurences[x];
+                    index=x;
+                }
+            }
+            if(index!=-1){
+                pairs.get(i).setNumber(String.valueOf(index));
+            }
+        }
+        System.out.println("created mappings for numbers of centroids to decission rows");
+
+        List<String> newPredictedValues = new ArrayList<>();
+        for(int i=0; i<rows.size(); i++){
+
+            for(int j=0; j< pairs.size(); j++){
+
+                if(pairs.get(j).getNumber().equals(predictedColumn.getContents().get(i))){
+                    newPredictedValues.add(pairs.get(j).getName());
+                }
+            }
+        }
+        predictedColumn.setContents(newPredictedValues);
+        System.out.println("matched predicted values to the source");
+
+        for(int k=0; k<rows.size(); k++){
+
+            if(predictedColumn.getContents().get(k).equals(classColumn.getContents().get(k))){
+                correctlyPredictedRows.add(k);
+            }else{
+                incorrectlyPredicredRows.add(k);
+            }
+        }
+        correctHits = correctlyPredictedRows.size();
+        correctHitsPercentage = ((double)correctHits/(double)rows.size())*100;
+        System.out.println("correct hits: "+correctHits);
+        System.out.println("correct hit percentage: "+correctHitsPercentage);
+
+//        List<Integer>indexes = new ArrayList<>();
+//        for(int k=0;k<amountOfDecisionClasses;k++) {
+//
+//            int []occurences = new int[amountOfDecisionClasses];
+//            for(int j=0;j<rows.size();j++) {
+//                if(classColumn.getContents().get(j).equals(String.valueOf(pairs.get(k).getName()))) {
+//                    occurences[Integer.parseInt(predictedColumn.getContents().get(j))]++;
+//                }
+//            }
+//            int max=0;
+//            int index=-1;
+//            for(int i=0;i<occurences.length;i++) {
+//                if(occurences[i]>max) {
+//                    max=occurences[i];
+//                    index=i;
+//                }
+//            }
+//            indexes.add(index);
+//        }
+        System.out.println("test");
+
+//        int correctHits=0;
+//        for(int i=0;i<rows.size();i++) {
+//
+//            for(int j=0;j<indexes.size();j++) {
+//
+//                if(classColumn.getContents().get(i).equals(String.valueOf(j))) {
+//                    if(predictedColumn.getContents().get(i).equals(String.valueOf(indexes.get(j)))) {
+//                        correctHits++;
+//                    }
+//                }
+//            }
+//
+//        }
+//        List<String> newContents = new ArrayList<>();
+//        for(int i=0;i<rows.size();i++) {
+//
+//            for(int j=0;j<indexes.size();j++) {
+//
+//                if(classColumn.getContents().get(i).equals(String.valueOf(j))) {
+//                    if(predictedColumn.getContents().get(i).equals(String.valueOf(indexes.get(j)))) {
+//                        newContents.add(classColumn.getContents().get(i));
+//                    }
+//                    else {
+//                        newContents.add(predictedColumn.getContents().get(i));
+//                    }
+//                }
+//            }
+//
+//        }
+//        System.out.println("correctHits: "+correctHits);
+//        System.out.println("correctHits percentage: "+((double)correctHits/(double)rows.size())*100);
+//        System.out.println("incorrectHits percentage: "+(100-(((double)correctHits/(double)rows.size())*100)));
+//        predictedColumn.setContents(newContents);
+//        for(int i=0;i<listOfCols.size();i++) {
+//            if(listOfCols.get(i).getTitle().equals("kmeansVal")) {
+//                listOfCols.get(i).setContents(newContents);
+//            }
+//        }
     }
 
     private boolean relocateCentroid() {
@@ -129,6 +272,67 @@ public class KmeansController {
         }
     }
 
+    private double mahalanobisDistance(DataRowWithCentroidID givenValues) {
+
+        List<Double> meanColumnValues = new ArrayList<>();
+        List<Double> providedValues = givenValues.getData();
+        List<Double> givenMinusMeanValues = new ArrayList<>();
+
+        double[][] valuesMatrix = new double[rows.size()][rows.get(0).getData().size()];
+
+
+        //calculate mean for each column
+        for(int i=0; i< rows.get(0).getData().size(); i++) {
+            double sumInColumn =0;
+            for(int j=0; j<rows.size(); j++) {
+                sumInColumn+=Double.valueOf(rows.get(j).getData().get(i));
+                valuesMatrix[j][i]=Double.valueOf(rows.get(j).getData().get(i));
+            }
+            meanColumnValues.add(sumInColumn/rows.size());
+        }
+
+        // calculate (x-m) given array minus mean array
+        for(int x = 0 ; x< meanColumnValues.size() ; x++) {
+            givenMinusMeanValues.add(providedValues.get(x) - meanColumnValues.get(x));
+        }
+
+        //pionowa macierz
+        double[][] verticalMatrixGiven = new double [1][givenMinusMeanValues.size()];
+        for(int i=0;i<givenMinusMeanValues.size(); i++) {
+            verticalMatrixGiven[0][i] = givenMinusMeanValues.get(i);
+        }
+
+        RealMatrix verticalMatrix = MatrixUtils.createRealMatrix(verticalMatrixGiven);
+
+        //pozioma macierz
+        double[][] horizontalMatrixGiven = new double [givenMinusMeanValues.size()][1];
+        for(int i=0;i<givenMinusMeanValues.size(); i++) {
+            horizontalMatrixGiven[i][0] = givenMinusMeanValues.get(i);
+        }
+
+        RealMatrix horizontalMatrix = MatrixUtils.createRealMatrix(horizontalMatrixGiven);
+
+        //obliczam maciez kowariancji
+        RealMatrix mx = MatrixUtils.createRealMatrix(valuesMatrix);
+        RealMatrix cov = new Covariance(mx).getCovarianceMatrix();
+        double [][] covarianceMatrix = cov.getData();
+        RealMatrix inversed = MatrixUtils.inverse(cov);
+        double [][] inversedCovarianceMatrix = inversed.getData();
+
+        RealMatrix p1 = verticalMatrix.multiply(inversed);
+        RealMatrix p2 = p1.multiply(horizontalMatrix);
+
+        double [][] distance = p2.getData();
+        double dist=0;
+        for(int i=0;i<distance.length; i++) {
+            for(int j=0; j<distance[i].length; j++) {
+                dist+=distance[i][j];
+            }
+        }
+
+        return dist;
+    }
+
     private void assignDistanceFromCentroids(int decission) {
         int changes=0;
         for(int i=0; i<rows.size(); i++) {
@@ -149,11 +353,11 @@ public class KmeansController {
                     distances[j] = manhattanDistance(currentRow, currentCentroid);
                 if(decission==3)
                     distances[j] = euklideanDistance(currentRow, currentCentroid);
-//                if(decission==2) {
-//                    double centroidFromMean = mahalanobisDistance(currentCentroid);
-//                    double rowFromMean = mahalanobisDistance(currentRow);
-//                    distances[j] = Math.abs(centroidFromMean-rowFromMean);
-//                }
+                if(decission==2) {
+                    double centroidFromMean = mahalanobisDistance(currentCentroid);
+                    double rowFromMean = mahalanobisDistance(currentRow);
+                    distances[j] = Math.abs(centroidFromMean-rowFromMean);
+                }
             }
             int minimalIndex = findMinimalDistanceIndex(distances);
             rows.get(i).setDistanceFromCentroid(distances[minimalIndex]);
@@ -266,8 +470,28 @@ public class KmeansController {
         int amount = 0;
         List<String> decisionElements = fileFromColumnsWhichUserWants.get(fileFromColumnsWhichUserWants.size()-1);
         //first element was title so thats why its being removed
-        Set targetSet = Set.copyOf(decisionElements);
-        return targetSet.size()-1;
+        DataColumn dc = new DataColumn();
+        dc.setTitle(decisionElements.get(0));
+        dc.setContents(decisionElements.subList(1, decisionElements.size()));
+        Set targetSet = Set.copyOf(dc.getContents());
+
+        List<String> alreadyHappenedTitles = new ArrayList<>();
+
+        for(int i=0; i<dc.getContents().size(); i++){
+
+            boolean isInList = false;
+            for(int j=0; j<alreadyHappenedTitles.size(); j++){
+                if(dc.getContents().get(i).equals(alreadyHappenedTitles.get(j))){
+                    isInList = true;
+                }
+            }
+            if(!isInList){
+                alreadyHappenedTitles.add(dc.getContents().get(i));
+                NameToNumberPair ntnp = new NameToNumberPair(String.valueOf(alreadyHappenedTitles.size()-1), dc.getContents().get(i));
+                pairs.add(ntnp);
+            }
+        }
+        return targetSet.size();
     }
 
 
