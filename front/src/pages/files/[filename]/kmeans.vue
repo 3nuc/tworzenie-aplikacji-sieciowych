@@ -41,6 +41,16 @@ const tableData = computed(() => {
 })
 const tableHeaders = computed(() => kmeansData.value?.dataset.at(0))
 
+const tableRowClassName = ({ row, rowIndex }) => {
+  const isCorrect = (kmeansData.value?.properties.correctlyPredictedRowIDS ?? []).includes(rowIndex)
+  const isIncorrect = (kmeansData.value?.properties.incorrectlyPredictedRowIDS ?? []).includes(rowIndex)
+  console.log(isCorrect, isIncorrect)
+  if (isCorrect)
+    return 'row-correct'
+  else if (isIncorrect)
+    return 'row-incorrect'
+}
+
 </script>
 
 <template>
@@ -91,7 +101,16 @@ const tableHeaders = computed(() => kmeansData.value?.dataset.at(0))
     </el-form-item>
     <!-- table here -->
   </el-form>
-  <el-table :data="tableData">
-    <el-table-column v-for="header, index in tableHeaders" :key="header" :prop="header" :label="header" />
+  <el-table :data="tableData" :row-class-name="tableRowClassName">
+    <el-table-column v-for="header in tableHeaders" :key="header" :prop="header" :label="header" />
   </el-table>
 </template>
+
+<style>
+.row-correct {
+  color: green;
+}
+.row-incorrect {
+  color: red;
+}
+</style>

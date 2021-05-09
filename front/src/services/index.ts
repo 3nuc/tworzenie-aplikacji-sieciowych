@@ -32,8 +32,8 @@ export interface KmeansArgs {
 export interface ReturnKmeans {
   dataset: any[]
   properties: {
-    correctlyPredictedIDS: number[]
-    incorrectlyPredictedIDS: number[]
+    correctlyPredictedRowIDS: number[]
+    incorrectlyPredictedRowIDS: number[]
     correctlyPredictedAmount: {hits: number}
     hitsPercentage: {hitsPercentage: number}
   }
