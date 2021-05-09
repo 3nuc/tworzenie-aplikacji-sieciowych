@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, ref, computed, reactive, onMounted } from 'vue'
+import { defineProps, ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useDigitalization, useDiscretizaiton, useFileCsv, useNormalization, useFileInfo } from '~/pages/files/logics'
 import FancyCard from '~/components/FancyCard.vue'
@@ -65,9 +65,10 @@ const router = useRouter()
               <div class="mb-8">
                 Liczba rzędów: <span class="text-2xl font-bold">{{ logics.fileInfo.state.value.rowCount }}</span>
               </div>
-              <el-button @click="router.push({path: `/files/${props.filename}/find_neighbors/`, append: true})">
+              <el-button @click="router.push({path: `/files/${props.filename}/find_neighbors/`})">
                 Przejdź do wykrywania sąsiadów
               </el-button>
+              <el-button @click="router.push({path: `/files/${props.filename}/kmeans`})">Przejdź do k-means</el-button>
             </FancyCard>
           </div>
           <div>
