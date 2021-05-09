@@ -118,7 +118,7 @@ public class KmeansController {
 
                 JsonArray dataRow = new JsonArray();
                 for(int j=0; j<listOfCols.size(); j++){
-                    dataRow.add(listOfCols.get(j).getContents().get(j));
+                    dataRow.add(listOfCols.get(j).getContents().get(i));
                 }
                 dataset.add(dataRow);
             }
