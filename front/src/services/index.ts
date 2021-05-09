@@ -22,14 +22,14 @@ interface NeighborsArgs {
 export const getNeighbors = (args: NeighborsArgs) =>
   api.get('returnNearestNeighbours', { params: { ...args, returnAllColumns: false } })
 
-interface KmeansArgs {
+export interface KmeansArgs {
   columns: string
   decissionColumn: string
   pointCoordinates: string
   findType: 'Euklidean' | 'Manhattan'
 }
 
-interface ReturnKmeans {
+export interface ReturnKmeans {
   dataset: any[]
   properties: {
     correctlyPredictedIDS: number[]
@@ -40,4 +40,4 @@ interface ReturnKmeans {
 }
 
 export const getKmeans = (args: KmeansArgs) =>
-  api.get<ReturnKmeans>('predictDecision', { params: { ...args, returnAllColumns: false } })
+  api.get<ReturnKmeans>('predictDecision', { params: { ...args, returnAllColumns: true } })
