@@ -28,7 +28,17 @@ const columns = computed(() => state?.value?.columnNames ?? [])
 const { state: kmeansData, execute: executeKmeans }
   = useAsyncState(async() => (await getKmeans(formFormatted.value)).data, null, { immediate: false })
 
-const tableData = computed(() => kmeansData.value?.dataset.slice(1))
+const tableData = computed(() => {
+  const tableDataRows = kmeansData.value?.dataset.slice(1) ?? []
+  const mapRowToObject = (row: string[]) => {
+    const obj: Record<string, string> = {}
+    tableHeaders.value.forEach((header, index) => {
+      obj[header] = row[index]
+    })
+    return obj
+  }
+  return tableDataRows.map(mapRowToObject)
+})
 const tableHeaders = computed(() => kmeansData.value?.dataset.at(0))
 
 </script>
@@ -82,6 +92,6 @@ const tableHeaders = computed(() => kmeansData.value?.dataset.at(0))
     <!-- table here -->
   </el-form>
   <el-table :data="tableData">
-    <el-table-column v-for="header, index in tableHeaders" :key="index" :prop="String(index)" :label="header" />
+    <el-table-column v-for="header, index in tableHeaders" :key="header" :prop="header" :label="header" />
   </el-table>
 </template>
