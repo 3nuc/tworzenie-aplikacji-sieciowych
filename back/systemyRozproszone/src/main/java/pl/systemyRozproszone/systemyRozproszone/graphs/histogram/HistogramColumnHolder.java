@@ -1,4 +1,4 @@
-package pl.systemyRozproszone.systemyRozproszone.graphs;
+package pl.systemyRozproszone.systemyRozproszone.graphs.histogram;
 
 import java.util.ArrayList;
 import java.util.List;
