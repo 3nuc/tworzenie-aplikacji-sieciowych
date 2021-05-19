@@ -9,6 +9,7 @@
     "@vueuse/head": "^0.3.1",
     "@vueuse/integrations": "^4.8.1",
     "apexcharts": "^3.26.1",
+    "d3": "^6.7.0",
     "element-plus": "^1.0.2-beta.33",
     "nprogress": "^0.2.0",
     "prism-theme-vars": "^0.1.4",

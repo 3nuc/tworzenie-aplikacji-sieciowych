@@ -68,7 +68,12 @@ const router = useRouter()
               <el-button @click="router.push({path: `/files/${props.filename}/find_neighbors/`})">
                 Przejdź do wykrywania sąsiadów
               </el-button>
-              <el-button @click="router.push({path: `/files/${props.filename}/kmeans`})">Przejdź do k-means</el-button>
+              <el-button @click="router.push({path: `/files/${props.filename}/kmeans`})">
+                Przejdź do k-means
+              </el-button>
+              <el-button @click="router.push({path: `/files/${props.filename}/histogram/`})">
+                Przejdź do histogramu
+              </el-button>
             </FancyCard>
           </div>
           <div>
