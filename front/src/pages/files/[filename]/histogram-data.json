@@ -1,0 +1,676 @@
+{
+    "items": [
+        {
+            "arrayOfElements": [
+                {
+                    "decission": "setosa",
+                    "value": 5.1
+                },
+                {
+                    "decission": "setosa",
+                    "value": 4.9
+                },
+                {
+                    "decission": "setosa",
+                    "value": 4.7
+                },
+                {
+                    "decission": "setosa",
+                    "value": 4.6
+                },
+                {
+                    "decission": "setosa",
+                    "value": 5.0
+                },
+                {
+                    "decission": "setosa",
+                    "value": 5.4
+                },
+                {
+                    "decission": "setosa",
+                    "value": 4.6
+                },
+                {
+                    "decission": "setosa",
+                    "value": 5.0
+                },
+                {
+                    "decission": "setosa",
+                    "value": 4.4
+                },
+                {
+                    "decission": "setosa",
+                    "value": 4.9
+                },
+                {
+                    "decission": "setosa",
+                    "value": 5.4
+                },
+                {
+                    "decission": "setosa",
+                    "value": 4.8
+                },
+                {
+                    "decission": "setosa",
+                    "value": 4.8
+                },
+                {
+                    "decission": "setosa",
+                    "value": 4.3
+                },
+                {
+                    "decission": "setosa",
+                    "value": 5.4
+                },
+                {
+                    "decission": "setosa",
+                    "value": 5.1
+                },
+                {
+                    "decission": "setosa",
+                    "value": 5.1
+                },
+                {
+                    "decission": "setosa",
+                    "value": 5.4
+                },
+                {
+                    "decission": "setosa",
+                    "value": 5.1
+                },
+                {
+                    "decission": "setosa",
+                    "value": 4.6
+                },
+                {
+                    "decission": "setosa",
+                    "value": 5.1
+                },
+                {
+                    "decission": "setosa",
+                    "value": 4.8
+                },
+                {
+                    "decission": "setosa",
+                    "value": 5.0
+                },
+                {
+                    "decission": "setosa",
+                    "value": 5.0
+                },
+                {
+                    "decission": "setosa",
+                    "value": 5.2
+                },
+                {
+                    "decission": "setosa",
+                    "value": 5.2
+                },
+                {
+                    "decission": "setosa",
+                    "value": 4.7
+                },
+                {
+                    "decission": "setosa",
+                    "value": 4.8
+                },
+                {
+                    "decission": "setosa",
+                    "value": 5.4
+                },
+                {
+                    "decission": "setosa",
+                    "value": 5.2
+                },
+                {
+                    "decission": "setosa",
+                    "value": 5.5
+                },
+                {
+                    "decission": "setosa",
+                    "value": 4.9
+                },
+                {
+                    "decission": "setosa",
+                    "value": 5.0
+                },
+                {
+                    "decission": "setosa",
+                    "value": 5.5
+                },
+                {
+                    "decission": "setosa",
+                    "value": 4.9
+                },
+                {
+                    "decission": "setosa",
+                    "value": 4.4
+                },
+                {
+                    "decission": "setosa",
+                    "value": 5.1
+                },
+                {
+                    "decission": "setosa",
+                    "value": 5.0
+                },
+                {
+                    "decission": "setosa",
+                    "value": 4.5
+                },
+                {
+                    "decission": "setosa",
+                    "value": 4.4
+                },
+                {
+                    "decission": "setosa",
+                    "value": 5.0
+                },
+                {
+                    "decission": "setosa",
+                    "value": 5.1
+                },
+                {
+                    "decission": "setosa",
+                    "value": 4.8
+                },
+                {
+                    "decission": "setosa",
+                    "value": 5.1
+                },
+                {
+                    "decission": "setosa",
+                    "value": 4.6
+                },
+                {
+                    "decission": "setosa",
+                    "value": 5.3
+                },
+                {
+                    "decission": "setosa",
+                    "value": 5.0
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 5.5
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 4.9
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 5.2
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 5.0
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 5.5
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 5.5
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 5.4
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 5.5
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 5.5
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 5.0
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 5.1
+                },
+                {
+                    "decission": "virginica",
+                    "value": 4.9
+                }
+            ],
+            "info": {
+                "sectorMin": 4.3,
+                "sectorMax": 5.5,
+                "mean": "5.018644067796609",
+                "amountOfItemsInSector": 59
+            },
+            "itemCount": [
+                {
+                    "decission": "setosa",
+                    "count": 47
+                },
+                {
+                    "decission": "versicolor",
+                    "count": 11
+                },
+                {
+                    "decission": "virginica",
+                    "count": 1
+                }
+            ]
+        },
+        {
+            "arrayOfElements": [
+                {
+                    "decission": "setosa",
+                    "value": 5.8
+                },
+                {
+                    "decission": "setosa",
+                    "value": 5.7
+                },
+                {
+                    "decission": "setosa",
+                    "value": 5.7
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 6.4
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 6.5
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 5.7
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 6.3
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 6.6
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 5.9
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 6.0
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 6.1
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 5.6
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 6.7
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 5.6
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 5.8
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 6.2
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 5.6
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 5.9
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 6.1
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 6.3
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 6.1
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 6.4
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 6.6
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 6.7
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 6.0
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 5.7
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 5.8
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 6.0
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 6.0
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 6.7
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 6.3
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 5.6
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 6.1
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 5.8
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 5.6
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 5.7
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 5.7
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 6.2
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 5.7
+                },
+                {
+                    "decission": "virginica",
+                    "value": 6.3
+                },
+                {
+                    "decission": "virginica",
+                    "value": 5.8
+                },
+                {
+                    "decission": "virginica",
+                    "value": 6.3
+                },
+                {
+                    "decission": "virginica",
+                    "value": 6.5
+                },
+                {
+                    "decission": "virginica",
+                    "value": 6.7
+                },
+                {
+                    "decission": "virginica",
+                    "value": 6.5
+                },
+                {
+                    "decission": "virginica",
+                    "value": 6.4
+                },
+                {
+                    "decission": "virginica",
+                    "value": 5.7
+                },
+                {
+                    "decission": "virginica",
+                    "value": 5.8
+                },
+                {
+                    "decission": "virginica",
+                    "value": 6.4
+                },
+                {
+                    "decission": "virginica",
+                    "value": 6.5
+                },
+                {
+                    "decission": "virginica",
+                    "value": 6.0
+                },
+                {
+                    "decission": "virginica",
+                    "value": 5.6
+                },
+                {
+                    "decission": "virginica",
+                    "value": 6.3
+                },
+                {
+                    "decission": "virginica",
+                    "value": 6.7
+                },
+                {
+                    "decission": "virginica",
+                    "value": 6.2
+                },
+                {
+                    "decission": "virginica",
+                    "value": 6.1
+                },
+                {
+                    "decission": "virginica",
+                    "value": 6.4
+                },
+                {
+                    "decission": "virginica",
+                    "value": 6.4
+                },
+                {
+                    "decission": "virginica",
+                    "value": 6.3
+                },
+                {
+                    "decission": "virginica",
+                    "value": 6.1
+                },
+                {
+                    "decission": "virginica",
+                    "value": 6.3
+                },
+                {
+                    "decission": "virginica",
+                    "value": 6.4
+                },
+                {
+                    "decission": "virginica",
+                    "value": 6.0
+                },
+                {
+                    "decission": "virginica",
+                    "value": 6.7
+                },
+                {
+                    "decission": "virginica",
+                    "value": 5.8
+                },
+                {
+                    "decission": "virginica",
+                    "value": 6.7
+                },
+                {
+                    "decission": "virginica",
+                    "value": 6.7
+                },
+                {
+                    "decission": "virginica",
+                    "value": 6.3
+                },
+                {
+                    "decission": "virginica",
+                    "value": 6.5
+                },
+                {
+                    "decission": "virginica",
+                    "value": 6.2
+                },
+                {
+                    "decission": "virginica",
+                    "value": 5.9
+                }
+            ],
+            "info": {
+                "sectorMin": 5.5000000001,
+                "sectorMax": 6.7000000001,
+                "mean": "6.1366197183098565",
+                "amountOfItemsInSector": 71
+            },
+            "itemCount": [
+                {
+                    "decission": "setosa",
+                    "count": 3
+                },
+                {
+                    "decission": "versicolor",
+                    "count": 36
+                },
+                {
+                    "decission": "virginica",
+                    "count": 32
+                }
+            ]
+        },
+        {
+            "arrayOfElements": [
+                {
+                    "decission": "versicolor",
+                    "value": 7.0
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 6.9
+                },
+                {
+                    "decission": "versicolor",
+                    "value": 6.8
+                },
+                {
+                    "decission": "virginica",
+                    "value": 7.1
+                },
+                {
+                    "decission": "virginica",
+                    "value": 7.6
+                },
+                {
+                    "decission": "virginica",
+                    "value": 7.3
+                },
+                {
+                    "decission": "virginica",
+                    "value": 7.2
+                },
+                {
+                    "decission": "virginica",
+                    "value": 6.8
+                },
+                {
+                    "decission": "virginica",
+                    "value": 7.7
+                },
+                {
+                    "decission": "virginica",
+                    "value": 7.7
+                },
+                {
+                    "decission": "virginica",
+                    "value": 6.9
+                },
+                {
+                    "decission": "virginica",
+                    "value": 7.7
+                },
+                {
+                    "decission": "virginica",
+                    "value": 7.2
+                },
+                {
+                    "decission": "virginica",
+                    "value": 7.2
+                },
+                {
+                    "decission": "virginica",
+                    "value": 7.4
+                },
+                {
+                    "decission": "virginica",
+                    "value": 7.9
+                },
+                {
+                    "decission": "virginica",
+                    "value": 7.7
+                },
+                {
+                    "decission": "virginica",
+                    "value": 6.9
+                },
+                {
+                    "decission": "virginica",
+                    "value": 6.9
+                },
+                {
+                    "decission": "virginica",
+                    "value": 6.8
+                }
+            ],
+            "info": {
+                "sectorMin": 6.7000000002,
+                "sectorMax": 7.9000000002,
+                "mean": "7.235000000000002",
+                "amountOfItemsInSector": 20
+            },
+            "itemCount": [
+                {
+                    "decission": "setosa",
+                    "count": 0
+                },
+                {
+                    "decission": "versicolor",
+                    "count": 3
+                },
+                {
+                    "decission": "virginica",
+                    "count": 17
+                }
+            ]
+        }
+    ]
+}
