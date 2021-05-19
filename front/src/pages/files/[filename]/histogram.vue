@@ -7,31 +7,31 @@ const histogram = ref(null)
 const props = defineProps({
   filename: { type: String, required: true },
 })
-const chartableData = chartify(rawData)
+const { actualChartData, domain } = chartify(rawData)
+const plot = Plot.plot({
+  facet: {
+    data: actualChartData,
+    x: 'section',
+  },
+  marks: [
+    Plot.barY(actualChartData, { x: 'decission', y: 'count', fill: 'decission' }),
+    Plot.ruleY([0]),
+  ],
+  color: {
+    scheme: 'spectral',
+    domain,
+  },
+  x: {
+    axis: null,
+    domain,
+  },
+})
 onMounted(() => {
-  const plot = Plot.plot({
-    facet: {
-      data: chartableData,
-      x: 'section',
-    },
-    marks: [
-      Plot.barY(chartableData, { x: 'decission', y: 'count', fill: 'decission' }),
-      Plot.ruleY([0]),
-    ],
-    color: {
-      scheme: 'spectral',
-      domain: ['setosa', 'versicolor', 'virginica'],
-    },
-    x: {
-      axis: null,
-      domain: ['setosa', 'versicolor', 'virginica'],
-    },
-  })
   histogram.value.appendChild(plot)
 })
 </script>
 
 <template>
   <div ref="histogram" />
-  {{chartableData}}
+  {{ actualChartData }}
 </template>
