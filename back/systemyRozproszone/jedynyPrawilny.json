@@ -475,7 +475,7 @@
 						},
 						{
 							"key": "yColumn",
-							"value": "sepal_width",
+							"value": "petal_width",
 							"type": "text"
 						}
 					]

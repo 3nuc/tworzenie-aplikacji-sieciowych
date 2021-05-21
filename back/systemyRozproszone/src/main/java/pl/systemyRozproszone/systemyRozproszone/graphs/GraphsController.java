@@ -143,18 +143,52 @@ public class GraphsController {
 
         for(int i=0; i<tableSize; i++){
 
-            JsonArray row = new JsonArray();
             for(int j=0; j<tableSize; j++){
                 JsonObject singleItem = new JsonObject();
+                singleItem.addProperty("row", i);
+                singleItem.addProperty("col", j);
                 singleItem.addProperty("correlationValue", resultTable[i][j].getCorrelationValue());
                 singleItem.addProperty("HcolorValue", resultTable[i][j].getH());
                 singleItem.addProperty("ScolorValue", resultTable[i][j].getS());
                 singleItem.addProperty("LcolorValue", resultTable[i][j].getL());
-                row.add(singleItem);
+                array.add(singleItem);
             }
-            array.add(row);
         }
-        response.add("table", array);
+        response.add("items", array);
+
+        JsonObject namesObj = new JsonObject();
+        JsonArray columns = new JsonArray();
+        JsonArray rows = new JsonArray();
+        for(int i=0; i<tableSize; i++){
+
+            JsonObject item = new JsonObject();
+            item.addProperty("row", i);
+            item.addProperty("name", data.get(i).get(0));
+            rows.add(item);
+
+            JsonObject item2 = new JsonObject();
+            item2.addProperty("col", i);
+            item2.addProperty("name", data.get(i).get(0));
+            columns.add(item2);
+        }
+        namesObj.add("columns", columns);
+        namesObj.add("rows", rows);
+        response.add("axis_names", namesObj);
+
+//        for(int i=0; i<tableSize; i++){
+//
+//            JsonArray row = new JsonArray();
+//            for(int j=0; j<tableSize; j++){
+//                JsonObject singleItem = new JsonObject();
+//                singleItem.addProperty("correlationValue", resultTable[i][j].getCorrelationValue());
+//                singleItem.addProperty("HcolorValue", resultTable[i][j].getH());
+//                singleItem.addProperty("ScolorValue", resultTable[i][j].getS());
+//                singleItem.addProperty("LcolorValue", resultTable[i][j].getL());
+//                row.add(singleItem);
+//            }
+//            array.add(row);
+//        }
+//        response.add("table", array);
 
 
 
