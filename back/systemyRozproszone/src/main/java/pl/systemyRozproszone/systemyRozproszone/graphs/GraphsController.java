@@ -145,8 +145,8 @@ public class GraphsController {
 
             for(int j=0; j<tableSize; j++){
                 JsonObject singleItem = new JsonObject();
-                singleItem.addProperty("row", i);
-                singleItem.addProperty("col", j);
+                singleItem.addProperty("row", data.get(i).get(0));
+                singleItem.addProperty("col", data.get(j).get(0));
                 singleItem.addProperty("correlationValue", resultTable[i][j].getCorrelationValue());
                 singleItem.addProperty("HcolorValue", resultTable[i][j].getH());
                 singleItem.addProperty("ScolorValue", resultTable[i][j].getS());
