@@ -46,6 +46,40 @@ public class Digitizer {
         return DiscretizerResponseEnum.SUCCESS;
     }
 
+
+    public static List<String> digitizeColumn(List<String> columnToDigitize){
+
+
+
+        List<String> listToDigitize = new ArrayList<>();
+
+        for(int i=1; i<columnToDigitize.size(); i++){
+            listToDigitize.add(columnToDigitize.get(i));
+        }
+
+        String title = columnToDigitize.get(0);
+
+        Set<String> set = new HashSet(listToDigitize);
+
+
+        List<String> digitizedColumn = new ArrayList<>();
+        digitizedColumn.add(title);
+
+        //iterate through the set to change strings into 0 1 2 3 etc in desc order
+        for(int i=0; i<listToDigitize.size();i++) {
+
+            int indexInSet=0;
+            for(String name: set) {
+                if(listToDigitize.get(i).equals(name)) {
+                    digitizedColumn.add(String.valueOf(indexInSet));
+                }
+                indexInSet++;
+            }
+        }
+
+        return digitizedColumn;
+    }
+
     private boolean doesColumnLikeThisExist(List<List<String>> testFile, String title) {
 
         for(int i=0; i< testFile.size(); i++){

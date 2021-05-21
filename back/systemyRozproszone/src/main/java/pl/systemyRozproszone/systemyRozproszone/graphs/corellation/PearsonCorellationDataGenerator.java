@@ -9,6 +9,13 @@ import java.util.List;
 public class PearsonCorellationDataGenerator {
 
 
+    public static String generateCorrelationValue(List<String> xColumn, List<String> yColumn) throws IllegalAccessException{
+        ColumnData xCol = new ColumnData.Builder().data(createListOfDouble(xColumn)).title(xColumn.get(0)).build();
+        ColumnData yCol = new ColumnData.Builder().data(createListOfDouble(yColumn)).title(yColumn.get(0)).build();
+        List<CorellationColumn> corellationTable = calculateCorellationData(xCol, yCol);
+        double corellation = calculateCorellation(corellationTable);
+        return String.valueOf(corellation);
+    }
 
     public static String generateData(List<String> xColumn, List<String> yColumn) throws IllegalAccessException {
 

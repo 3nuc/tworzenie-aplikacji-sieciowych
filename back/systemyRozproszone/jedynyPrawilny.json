@@ -406,6 +406,95 @@
 			"response": []
 		},
 		{
+			"name": "histogram",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "fileName",
+							"value": "irisemptyy-kopia.csv",
+							"type": "text"
+						},
+						{
+							"key": "columnToCheck",
+							"value": "sepal_length",
+							"type": "text"
+						},
+						{
+							"key": "decissionColumn",
+							"value": "species",
+							"type": "text"
+						},
+						{
+							"key": "amountOfSections",
+							"value": "3",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8082/createHistogram",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"createHistogram"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "corellation",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "fileName",
+							"value": "irisemptyy-kopia.csv",
+							"type": "text"
+						},
+						{
+							"key": "xColumn",
+							"value": "sepal_length",
+							"type": "text"
+						},
+						{
+							"key": "yColumn",
+							"value": "sepal_width",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8082/createCorellation",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"createCorellation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "kmeans",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
@@ -470,6 +559,38 @@
 					"port": "8082",
 					"path": [
 						"predictDecision"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createCorrellationTable",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "fileName",
+							"value": "irisemptyy-kopia.csv",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8082/createCorellationTable",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"createCorellationTable"
 					]
 				}
 			},
