@@ -1,0 +1,251 @@
+{
+    "size": 5,
+    "items": [
+        {
+            "row": "sepal_length",
+            "col": "sepal_length",
+            "correlationValue": "1.0",
+            "HcolorValue": 120,
+            "ScolorValue": 100,
+            "LcolorValue": 50
+        },
+        {
+            "row": "sepal_length",
+            "col": "sepal_width",
+            "correlationValue": "-0.10936924995067286",
+            "HcolorValue": 53,
+            "ScolorValue": 100,
+            "LcolorValue": 50
+        },
+        {
+            "row": "sepal_length",
+            "col": "petal_length",
+            "correlationValue": "0.8717541573048861",
+            "HcolorValue": 112,
+            "ScolorValue": 100,
+            "LcolorValue": 50
+        },
+        {
+            "row": "sepal_length",
+            "col": "petal_width",
+            "correlationValue": "0.8179536333691775",
+            "HcolorValue": 109,
+            "ScolorValue": 100,
+            "LcolorValue": 50
+        },
+        {
+            "row": "sepal_length",
+            "col": "species",
+            "correlationValue": "-0.3225220753098522",
+            "HcolorValue": 40,
+            "ScolorValue": 100,
+            "LcolorValue": 50
+        },
+        {
+            "row": "sepal_width",
+            "col": "sepal_length",
+            "correlationValue": "-0.10936924995067286",
+            "HcolorValue": 53,
+            "ScolorValue": 100,
+            "LcolorValue": 50
+        },
+        {
+            "row": "sepal_width",
+            "col": "sepal_width",
+            "correlationValue": "1.0",
+            "HcolorValue": 120,
+            "ScolorValue": 100,
+            "LcolorValue": 50
+        },
+        {
+            "row": "sepal_width",
+            "col": "petal_length",
+            "correlationValue": "-0.42051609640118826",
+            "HcolorValue": 34,
+            "ScolorValue": 100,
+            "LcolorValue": 50
+        },
+        {
+            "row": "sepal_width",
+            "col": "petal_width",
+            "correlationValue": "-0.3565440896138223",
+            "HcolorValue": 38,
+            "ScolorValue": 100,
+            "LcolorValue": 50
+        },
+        {
+            "row": "sepal_width",
+            "col": "species",
+            "correlationValue": "-0.19271852444380275",
+            "HcolorValue": 48,
+            "ScolorValue": 100,
+            "LcolorValue": 50
+        },
+        {
+            "row": "petal_length",
+            "col": "sepal_length",
+            "correlationValue": "0.8717541573048861",
+            "HcolorValue": 112,
+            "ScolorValue": 100,
+            "LcolorValue": 50
+        },
+        {
+            "row": "petal_length",
+            "col": "sepal_width",
+            "correlationValue": "-0.42051609640118826",
+            "HcolorValue": 34,
+            "ScolorValue": 100,
+            "LcolorValue": 50
+        },
+        {
+            "row": "petal_length",
+            "col": "petal_length",
+            "correlationValue": "1.0",
+            "HcolorValue": 120,
+            "ScolorValue": 100,
+            "LcolorValue": 50
+        },
+        {
+            "row": "petal_length",
+            "col": "petal_width",
+            "correlationValue": "0.9627570970509656",
+            "HcolorValue": 117,
+            "ScolorValue": 100,
+            "LcolorValue": 50
+        },
+        {
+            "row": "petal_length",
+            "col": "species",
+            "correlationValue": "-0.29994201760010425",
+            "HcolorValue": 42,
+            "ScolorValue": 100,
+            "LcolorValue": 50
+        },
+        {
+            "row": "petal_width",
+            "col": "sepal_length",
+            "correlationValue": "0.8179536333691775",
+            "HcolorValue": 109,
+            "ScolorValue": 100,
+            "LcolorValue": 50
+        },
+        {
+            "row": "petal_width",
+            "col": "sepal_width",
+            "correlationValue": "-0.3565440896138223",
+            "HcolorValue": 38,
+            "ScolorValue": 100,
+            "LcolorValue": 50
+        },
+        {
+            "row": "petal_width",
+            "col": "petal_length",
+            "correlationValue": "0.9627570970509656",
+            "HcolorValue": 117,
+            "ScolorValue": 100,
+            "LcolorValue": 50
+        },
+        {
+            "row": "petal_width",
+            "col": "petal_width",
+            "correlationValue": "1.0",
+            "HcolorValue": 120,
+            "ScolorValue": 100,
+            "LcolorValue": 50
+        },
+        {
+            "row": "petal_width",
+            "col": "species",
+            "correlationValue": "-0.3757153067683139",
+            "HcolorValue": 37,
+            "ScolorValue": 100,
+            "LcolorValue": 50
+        },
+        {
+            "row": "species",
+            "col": "sepal_length",
+            "correlationValue": "-0.3225220753098522",
+            "HcolorValue": 40,
+            "ScolorValue": 100,
+            "LcolorValue": 50
+        },
+        {
+            "row": "species",
+            "col": "sepal_width",
+            "correlationValue": "-0.19271852444380275",
+            "HcolorValue": 48,
+            "ScolorValue": 100,
+            "LcolorValue": 50
+        },
+        {
+            "row": "species",
+            "col": "petal_length",
+            "correlationValue": "-0.29994201760010425",
+            "HcolorValue": 42,
+            "ScolorValue": 100,
+            "LcolorValue": 50
+        },
+        {
+            "row": "species",
+            "col": "petal_width",
+            "correlationValue": "-0.3757153067683139",
+            "HcolorValue": 37,
+            "ScolorValue": 100,
+            "LcolorValue": 50
+        },
+        {
+            "row": "species",
+            "col": "species",
+            "correlationValue": "1.0",
+            "HcolorValue": 120,
+            "ScolorValue": 100,
+            "LcolorValue": 50
+        }
+    ],
+    "axis_names": {
+        "columns": [
+            {
+                "col": 0,
+                "name": "sepal_length"
+            },
+            {
+                "col": 1,
+                "name": "sepal_width"
+            },
+            {
+                "col": 2,
+                "name": "petal_length"
+            },
+            {
+                "col": 3,
+                "name": "petal_width"
+            },
+            {
+                "col": 4,
+                "name": "species"
+            }
+        ],
+        "rows": [
+            {
+                "row": 0,
+                "name": "sepal_length"
+            },
+            {
+                "row": 1,
+                "name": "sepal_width"
+            },
+            {
+                "row": 2,
+                "name": "petal_length"
+            },
+            {
+                "row": 3,
+                "name": "petal_width"
+            },
+            {
+                "row": 4,
+                "name": "species"
+            }
+        ]
+    }
+}

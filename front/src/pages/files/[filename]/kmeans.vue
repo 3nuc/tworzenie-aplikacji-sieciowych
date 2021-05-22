@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { computed, defineProps, ref } from 'vue'
 import { useAsyncState } from '@vueuse/core'
-import ApexChart from 'vue3-apexcharts'
 import { useFileInfo } from '~/pages/files/logics'
 import { getKmeans } from '~/services'
-import type { ReturnKmeans } from '~/services'
 
 const props = defineProps(['filename'])
 const form = ref({
