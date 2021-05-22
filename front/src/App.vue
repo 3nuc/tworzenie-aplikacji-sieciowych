@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useHead } from '@vueuse/head'
+import { useHead } from '@vueuse/head';;;;;;;
 
 // https://github.com/vueuse/head
 // you can use this to manipulate the document head in any components,
