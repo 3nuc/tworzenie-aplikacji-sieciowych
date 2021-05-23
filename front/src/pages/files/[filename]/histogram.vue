@@ -22,14 +22,24 @@ const { state, isReady, execute } = useAsyncState(async() => (await getHistogram
 const executeWrapper = async() => {
   await execute()
   const chartified = chartify(state.value)
+  console.log(chartified)
   const plot = Plot.plot({
+    grid: true,
     facet: {
       data: chartified.actualChartData,
       x: 'section',
     },
     marks: [
-      Plot.barY(chartified.actualChartData, { x: 'decission', y: 'count', fill: 'decission' }),
-      Plot.ruleY([0]),
+      Plot.barY(chartified.actualChartData, { x: 'decission', y: 'count', fill: 'decission', title: 'decission' }),
+      /*
+      Plot.text(chartified.actualChartData, {
+        x: 'decission',
+        y: 'count',
+        text: 'decission',
+        rotate: 90,
+      }),
+      */
+      // Plot.ruleY([0]),
     ],
     color: {
       scheme: 'spectral',
