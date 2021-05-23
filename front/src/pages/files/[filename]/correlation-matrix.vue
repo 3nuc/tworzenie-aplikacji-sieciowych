@@ -41,6 +41,7 @@ onMounted(async() => {
         x: 'row',
         y: 'col',
         text: datum => datum.correlationValue.toFixed(2),
+        fontWeight: 'bold',
       }),
     ],
     style: {

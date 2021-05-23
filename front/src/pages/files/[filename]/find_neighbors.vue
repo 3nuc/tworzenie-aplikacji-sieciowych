@@ -1,7 +1,7 @@
 <script setup>
 import { defineProps, ref, computed } from 'vue'
+import * as Plot from '@observablehq/plot'
 import { useAsyncState } from '@vueuse/core'
-import ApexChart from 'vue3-apexcharts'
 import { useFileInfo } from '~/pages/files/logics'
 import { getNeighbors } from '~/services'
 
@@ -14,6 +14,8 @@ const form = ref({
   pointCoordinates: {},
 })
 
+const chart = ref(null)
+
 const formFormatted = computed(() => ({
   ...form.value,
   fileName: props.filename,
@@ -23,57 +25,57 @@ const formFormatted = computed(() => ({
 }))
 
 const { state, isReady } = useFileInfo({ fileName: props.filename, immediate: true })
-
 const columns = computed(() => state?.value?.columnNames ?? [])
 
-const { state: neighborData, execute: executeNeighbors } = useAsyncState(async() => { const req = await getNeighbors(formFormatted.value); console.log(req); return req.data }, null, { immediate: false })
+const { state: neighborData, execute: executeNeighbors }
+  = useAsyncState(
+    async() => (await getNeighbors(formFormatted.value)).data,
+    null,
+    { immediate: false },
+  )
+
+const chartified = computed(() => {
+  const arrayToPointConverter = (item) => {
+    // classes can be numbers but plot lib goes stupid
+    // if you mix strings and numbers, so lets do strings
+    const assignedClass = String(item.at(-1))
+    const pointValues = item.slice(0, item.length)
+    // cant display more than 2 dimensions due to chart lib limitation
+    return { assignedClass, x: pointValues[0] ?? 0, y: pointValues[1] ?? 0, isUserInput: assignedClass === 'userinput' }
+  }
+
+  const userPoint = [...Object.values(form.value.pointCoordinates), 'userinput']
+
+  return [
+    ...(neighborData.value ?? []),
+    userPoint,
+  ].map(arrayToPointConverter)
+})
 
 const sendNeighbors = async() => {
   await executeNeighbors()
-  console.log(neighborData.value)
-  correctSeries.value = recalculateSeries()
-}
-
-const recalculateSeries = () => {
-  if (neighborData.value === null) return null
-  const seriesNames = [...new Set(neighborData.value.map(item => item.at(-1)))]
-  const seriesObjects = seriesNames.map(name => ({ name, data: [] }))
-
-  console.log(seriesNames, seriesObjects)
-
-  neighborData.value.forEach((item) => {
-    const coords = item.slice(0, item.length - 1)
-    const seriesName = item.at(-1)
-    const seriesBelongedTo = seriesObjects.find(({ name }) => name === seriesName)
-    seriesBelongedTo.data.push(coords)
+  const plot = Plot.plot({
+    grid: true,
+    marks: [
+      Plot.dot(chartified.value,
+        {
+          x: 'x',
+          y: 'y',
+          fill: d => d.isUserInput,
+          r: d => d.isUserInput ? 10 : 1,
+          title: d => `Class: ${d.assignedClass} - x: ${d.x}, y: ${d.y}`,
+        }),
+      Plot.text(chartified.value, { x: 'x', y: 'y', text: d => d.isUserInput ? 'USER' : '', dy: 5, fontWeight: 'bold' }),
+    ],
+    color: {
+      scheme: 'accent',
+    },
   })
-  seriesObjects.push({ name: 'Podany przez użytkownika', data: [formFormatted.value.pointCoordinates.split(',')] })
-  return seriesObjects
-}
+  while (chart.value.firstChild)
+    chart.value.removeChild(chart.value.firstChild)
 
-const options = {
-  chart: { type: 'scatter', height: 300, zoom: { enabled: true, type: 'xy' } },
-  xaxis: {
-    tickAmount: 10,
-  },
-  yaxis: {
-    tickAmount: 7,
-  },
+  chart.value.appendChild(plot)
 }
-
-const correctSeries = ref([{
-  name: 'SAMPLE A',
-  data: [
-    [16.4, 5.4], [21.7, 2], [25.4, 3], [19, 2], [10.9, 1], [13.6, 3.2], [10.9, 7.4], [10.9, 0], [10.9, 8.2], [16.4, 0], [16.4, 1.8], [13.6, 0.3], [13.6, 0], [29.9, 0], [27.1, 2.3], [16.4, 0], [13.6, 3.7], [10.9, 5.2], [16.4, 6.5], [10.9, 0], [24.5, 7.1], [10.9, 0], [8.1, 4.7], [19, 0], [21.7, 1.8], [27.1, 0], [24.5, 0], [27.1, 0], [29.9, 1.5], [27.1, 0.8], [22.1, 2]],
-}, {
-  name: 'SAMPLE B',
-  data: [
-    [36.4, 13.4], [1.7, 11], [5.4, 8], [9, 17], [1.9, 4], [3.6, 12.2], [1.9, 14.4], [1.9, 9], [1.9, 13.2], [1.4, 7], [6.4, 8.8], [3.6, 4.3], [1.6, 10], [9.9, 2], [7.1, 15], [1.4, 0], [3.6, 13.7], [1.9, 15.2], [6.4, 16.5], [0.9, 10], [4.5, 17.1], [10.9, 10], [0.1, 14.7], [9, 10], [12.7, 11.8], [2.1, 10], [2.5, 10], [27.1, 10], [2.9, 11.5], [7.1, 10.8], [2.1, 12]],
-}, {
-  name: 'SAMPLE C',
-  data: [
-    [21.7, 3], [23.6, 3.5], [24.6, 3], [29.9, 3], [21.7, 20], [23, 2], [10.9, 3], [28, 4], [27.1, 0.3], [16.4, 4], [13.6, 0], [19, 5], [22.4, 3], [24.5, 3], [32.6, 3], [27.1, 4], [29.6, 6], [31.6, 8], [21.6, 5], [20.9, 4], [22.4, 0], [32.6, 10.3], [29.7, 20.8], [24.5, 0.8], [21.4, 0], [21.7, 6.9], [28.6, 7.7], [15.4, 0], [18.1, 0], [33.4, 0], [16.4, 0]],
-}])
 </script>
 
 <template>
@@ -151,6 +153,6 @@ const correctSeries = ref([{
         Wyślij
       </el-button>
     </el-form-item>
-    <apex-chart type="scatter" width="500" :options="options" :series="correctSeries" />
+    <div ref="chart" />
   </el-form>
 </template>
