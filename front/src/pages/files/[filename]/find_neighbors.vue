@@ -154,6 +154,5 @@ const sendNeighbors = async() => {
       </el-button>
     </el-form-item>
     <div ref="chart" />
-    <apex-chart type="scatter" width="500" :options="options" :series="correctSeries" />
   </el-form>
 </template>
