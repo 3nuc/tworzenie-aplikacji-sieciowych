@@ -27,21 +27,32 @@ const columns = computed(() => fileInfo.value?.columnNames ?? [])
 
 const executeWrapper = async() => {
   await execute()
-  redrawChart()
 }
 
 const redrawChart = (x, y) => {
-  const dataForGraph = state.value?.graphs.find(graph => graph[0])
+  if ([x, y].includes(null)) return
+
+  const dataForGraph = state.value?.graphs.find((graph) => {
+    const { rowName, colName } = graph.properties
+    console.log(x, y, rowName, colName, rowName === x && colName === y)
+    return rowName === x && colName === y
+  })?.items ?? []
   const plot = Plot.plot({
     grid: true,
-    facet: {
-      x: 'row',
-    },
+    width: 1080,
+    height: 1080,
     marks: [
-      Plot.dot(chartified.value, { x: 'row', y: 'col', fill: 'val' }),
+      Plot.dot(dataForGraph, {
+        x: 'row',
+        y: 'col',
+        fill: 'val',
+        r: 10,
+        title: d => `${d.val}, x - ${d.row}, y - ${d.col}`,
+      }),
+
     ],
     color: {
-      scheme: 'spectral',
+      scheme: 'tableau10',
     },
   })
   while (chart.value.firstChild)
@@ -70,12 +81,16 @@ const redrawChart = (x, y) => {
     <div ref="chart" />
   </el-form>
   <div class="flex flex-col gap-10">
-    <el-radio-group class="mr-5" v-model="col_permutation.x" @change="redrawChart">
-      <el-radio-button v-for="column in columns" :label="column">{{column}}</el-radio-button>
+    <el-radio-group v-model="col_permutation.x" :disabled="state===null" class="mr-5" @change="(col_permutation.x, col_permutation.y)">
+      <el-radio-button v-for="column in columns" :label="column">
+        {{ column }}
+      </el-radio-button>
     </el-radio-group>
 
-    <el-radio-group v-model="col_permutation.y" @change="redrawChart">
-      <el-radio-button v-for="column in columns" :label="column">{{column}}</el-radio-button>
+    <el-radio-group v-model="col_permutation.y" :disabled="state===null" @change="redrawChart(col_permutation.x, col_permutation.y)">
+      <el-radio-button v-for="column in columns" :label="column">
+        {{ column }}
+      </el-radio-button>
     </el-radio-group>
   </div>
 </template>
