@@ -79,7 +79,7 @@ const executeWrapper = async() => {
       <el-input-number v-model="form.amountOfSections" :min="1" />
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" :disabled="isSendDisabled" @click="executeWrapper">
+      <el-button type="primary" :disabled="form.decissionColumn === null || form.columnToCheck === null" @click="executeWrapper">
         Wyślij
       </el-button>
     </el-form-item>
