@@ -74,6 +74,9 @@ const router = useRouter()
               <el-button @click="router.push({path: `/files/${props.filename}/histogram/`})">
                 Przejdź do histogramu
               </el-button>
+              <el-button @click="router.push({path: `/files/${props.filename}/cartesian-table/`})">
+                Przejdź do zależności
+              </el-button>
               <el-button @click="router.push({path: `/files/${props.filename}/correlation-matrix/`})">
                 Przejdź do macierzy korelacji
               </el-button>

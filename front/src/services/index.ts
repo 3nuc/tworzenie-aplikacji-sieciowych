@@ -46,3 +46,6 @@ export const getHistogram = (args: {fileName: string, columnToCheck: string, dec
   api.get<ReturnKmeans>('createHistogram', { params: { ...args } })
 export const getCorrelationTable = (args: {fileName: string }) =>
   api.get<ReturnKmeans>('createCorellationTable', { params: { fileName: args.fileName, returnAllColumns: true } })
+
+export const getCartesianTable = (args: {fileName: string, decissionClass: string }) =>
+  api.get<ReturnKmeans>('createCartesianProductTable', { params: { fileName: args.fileName, decissionClass: args.decissionClass } })
