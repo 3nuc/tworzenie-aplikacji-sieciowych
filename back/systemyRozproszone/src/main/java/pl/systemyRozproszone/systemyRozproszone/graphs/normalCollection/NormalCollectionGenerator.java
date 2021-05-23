@@ -33,6 +33,8 @@ public class NormalCollectionGenerator {
                     ValuesPair pair = new ValuesPair();
                     pair.setColumn1(currentBaseColumn.get(k));
                     pair.setColumn2(currentPairedColumn.get(k));
+                    pair.setColumn1Name(currentBaseColumn.get(0));
+                    pair.setColumn2Name(currentPairedColumn.get(0));
                     pair.setDiagramId(graphCounter);
                     pair.setValue(decission.get(k));
                     createdValue.add(pair);
@@ -106,6 +108,8 @@ public class NormalCollectionGenerator {
             axisProps.addProperty("minY", minY);
             axisProps.addProperty("maxX", maxX);
             axisProps.addProperty("maxY", maxY);
+            axisProps.addProperty("rowName",graph.get(0).getColumn1Name());
+            axisProps.addProperty("colName",graph.get(0).getColumn2Name());
             graphToReturn.add("properties", axisProps);
 
             graphs.add(graphToReturn);

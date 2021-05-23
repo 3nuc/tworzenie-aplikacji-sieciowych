@@ -3,6 +3,8 @@ package pl.systemyRozproszone.systemyRozproszone.graphs.normalCollection;
 public class ValuesPair {
 
     String column1;
+    String column1Name;
+    String column2Name;
     String column2;
     String value;
     int diagramId;
@@ -48,5 +50,21 @@ public class ValuesPair {
 
     public void setDiagramId(int diagramId) {
         this.diagramId = diagramId;
+    }
+
+    public String getColumn1Name() {
+        return column1Name;
+    }
+
+    public void setColumn1Name(String column1Name) {
+        this.column1Name = column1Name;
+    }
+
+    public String getColumn2Name() {
+        return column2Name;
+    }
+
+    public void setColumn2Name(String column2Name) {
+        this.column2Name = column2Name;
     }
 }
