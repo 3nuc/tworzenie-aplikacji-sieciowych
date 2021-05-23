@@ -50,6 +50,9 @@ const executeWrapper = async() => {
       domain: chartified.domain,
     },
   })
+  while (histogram.value.firstChild)
+    histogram.value.removeChild(histogram.value.firstChild)
+
   histogram.value.appendChild(plot)
 }
 </script>
