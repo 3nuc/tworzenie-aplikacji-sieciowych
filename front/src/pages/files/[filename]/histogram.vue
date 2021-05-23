@@ -22,7 +22,6 @@ const { state, isReady, execute } = useAsyncState(async() => (await getHistogram
 const executeWrapper = async() => {
   await execute()
   const chartified = chartify(state.value)
-  console.log(chartified)
   const plot = Plot.plot({
     grid: true,
     facet: {
