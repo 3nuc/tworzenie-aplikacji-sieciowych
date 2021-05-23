@@ -8,6 +8,10 @@ const props = defineProps({
   filename: { type: String, required: true },
 })
 const chart = ref(null)
+const col_permutation = reactive({
+  x: null,
+  y: null,
+})
 
 const form = reactive({
   decissionClass: null,
@@ -19,13 +23,15 @@ const { state, execute } = useAsyncState(
 
 const { state: fileInfo, isReady: isFileReady } = useAsyncState(async() => (await getFileInfo({ fileName: props.filename })).data)
 
-const chartified = computed(() => {
-  console.log(state.value?.graphs.flatMap(graph => graph.items))
-  return state.value?.graphs.flatMap(graph => graph.items) ?? []
-})
+const columns = computed(() => fileInfo.value?.columnNames ?? [])
 
 const executeWrapper = async() => {
   await execute()
+  redrawChart()
+}
+
+const redrawChart = (x, y) => {
+  const dataForGraph = state.value?.graphs.find(graph => graph[0])
   const plot = Plot.plot({
     grid: true,
     facet: {
@@ -33,18 +39,6 @@ const executeWrapper = async() => {
     },
     marks: [
       Plot.dot(chartified.value, { x: 'row', y: 'col', fill: 'val' }),
-      /*
-      Plot.text(chartified.actualChartData, {
-        x: 'decission',
-        y: 'count',
-        text: 'decission',
-        rotate: 90,
-        textAnchor: 'start',
-        fontSize: 3,
-        dx: "1em"
-      }),
-      */
-      // Plot.ruleY([0]),
     ],
     color: {
       scheme: 'spectral',
@@ -61,7 +55,7 @@ const executeWrapper = async() => {
     <el-form-item label="Kolumna decyzyjna" required>
       <el-select v-model="form.decissionClass">
         <el-option
-          v-for="column in fileInfo?.columnNames ?? []"
+          v-for="column in columns"
           :key="column"
           :value="column"
           :label="column"
@@ -75,5 +69,13 @@ const executeWrapper = async() => {
     </el-form-item>
     <div ref="chart" />
   </el-form>
-  {{ chartified }}
+  <div class="flex flex-col gap-10">
+    <el-radio-group class="mr-5" v-model="col_permutation.x" @change="redrawChart">
+      <el-radio-button v-for="column in columns" :label="column">{{column}}</el-radio-button>
+    </el-radio-group>
+
+    <el-radio-group v-model="col_permutation.y" @change="redrawChart">
+      <el-radio-button v-for="column in columns" :label="column">{{column}}</el-radio-button>
+    </el-radio-group>
+  </div>
 </template>
