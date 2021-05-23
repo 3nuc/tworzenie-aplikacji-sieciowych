@@ -37,6 +37,9 @@ const executeWrapper = async() => {
         y: 'count',
         text: 'decission',
         rotate: 90,
+        textAnchor: 'start',
+        fontSize: 3,
+        dx: "1em"
       }),
       */
       // Plot.ruleY([0]),
