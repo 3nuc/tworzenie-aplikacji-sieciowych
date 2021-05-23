@@ -15,6 +15,7 @@ import pl.systemyRozproszone.systemyRozproszone.graphs.corellation.CorellationCo
 import pl.systemyRozproszone.systemyRozproszone.graphs.corellation.CorrelationColor;
 import pl.systemyRozproszone.systemyRozproszone.graphs.corellation.PearsonCorellationDataGenerator;
 import pl.systemyRozproszone.systemyRozproszone.graphs.histogram.HistogramDataGenerator;
+import pl.systemyRozproszone.systemyRozproszone.graphs.normalCollection.NormalCollectionGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -195,6 +196,42 @@ public class GraphsController {
 
         return response.toString();
     }
+
+
+    @GetMapping("/createCartesianProductTable")
+    public String correlationTable(
+            @RequestParam("fileName") String fileName,
+            @RequestParam("decissionClass")String decissionClass) throws IllegalAccessException {
+
+
+        boolean ifFileExists = UsefulInfoFromDatasetReturner.checkIfFileExists(fileName, PATH);
+        if(!ifFileExists){
+            return DiscretizerResponseEnum.FILE_DOESNT_EXIST.toString();
+        }
+        List<List<String>> data = CSVParser.parseCSVtoListArray(fileName, PATH);
+        List<List<String>> dataDigitized = new ArrayList<>();
+        int decissionClassId = UsefulInfoFromDatasetReturner.getColumnId(data,decissionClass);
+        List<String> decissionClassValues = data.get(decissionClassId);
+
+        for(int i=0; i<data.size(); i++){
+            if(!UsefulInfoFromDatasetReturner.doesColumnContainOnlyNumericValues(data, data.get(i).get(0))){
+                dataDigitized.add(Digitizer.digitizeColumn(data.get(i)));
+            }else{
+                dataDigitized.add(data.get(i));
+            }
+        }
+        List<String> columnNames = new ArrayList<>();
+        for(int i=0;i<data.size();i++){
+            columnNames.add(data.get(i).get(0));
+        }
+
+        String json = NormalCollectionGenerator.generatedListJson(dataDigitized, columnNames, decissionClassValues);
+
+
+        return json;
+    }
+
+
 
     private ColorsObject calculateColor(String value) {
         ColorsObject toReturn = new ColorsObject();

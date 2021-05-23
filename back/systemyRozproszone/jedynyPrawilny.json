@@ -595,6 +595,43 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "cartesianTable",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "fileName",
+							"value": "irisemptyy-kopia.csv",
+							"type": "text"
+						},
+						{
+							"key": "decissionClass",
+							"value": "species",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8082/createCartesianProductTable",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"createCartesianProductTable"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
