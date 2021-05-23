@@ -42,5 +42,7 @@ export interface ReturnKmeans {
 export const getKmeans = (args: KmeansArgs) =>
   api.get<ReturnKmeans>('predictDecision', { params: { ...args, returnAllColumns: true } })
 
+export const getHistogram = (args: {fileName: string, columnToCheck: string, decissionColumn: string, amountOfSections: string }) =>
+  api.get<ReturnKmeans>('createHistogram', { params: { ...args } })
 export const getCorrelationTable = (args: {fileName: string }) =>
   api.get<ReturnKmeans>('createCorellationTable', { params: { fileName: args.fileName, returnAllColumns: true } })
