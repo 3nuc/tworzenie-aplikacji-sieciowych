@@ -111,8 +111,6 @@ export default defineConfig({
       'vue',
       'vue-router',
       '@vueuse/core',
-      'vue3-apexcharts',
-      'apexcharts',
     ],
     exclude: [
       'vue-demi',
