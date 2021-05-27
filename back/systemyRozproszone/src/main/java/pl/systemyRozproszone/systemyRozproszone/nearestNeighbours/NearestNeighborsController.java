@@ -72,21 +72,36 @@ public class NearestNeighborsController {
         List<List<String>> neighbours = distance.returnNearestNeighbours(amountOfNeighbours, data, returnAll);
 
 
-//        JsonObject response = new JsonObject();
+        JsonObject response = new JsonObject();
 //        response.addProperty("columnCount", amountOfColumns);
 //        response.addProperty("rowCount", amountOfRows);
-//
-//        JsonArray columnNames = new JsonArray();
-//        for(String title: titles){
-//            columnNames.add(title);
-//        }
+///////////
+        JsonArray dataArray = new JsonArray();
+        JsonArray titles = new JsonArray();
+        List<String> titlesList = new ArrayList<>();
+        for(int i=0;i<data.size(); i++){
+            titlesList.add(data.get(i).get(0));
+        }
+        for(int i=0; i<titlesList.size(); i++){
+            titles.add(titlesList.get(i));
+        }
+        dataArray.add(titles);
+        for(List<String> object : neighbours){
+            JsonArray item = new JsonArray();
+            for(int i=0; i< object.size(); i++){
+                item.add(object.get(i));
+            }
+            dataArray.add(item);
+        }
+        response.add("dataset", dataArray);
+        //////////////////
 //        response.add("columnNames", columnNames);
 //
 //        return response.toString();
 
 
 
-        return neighbours.toString();
+        return response.toString();
     }
 
     private List<Double> createDoubleArrayFromString(String[] coordinates, List<Double> pointCoords) {
