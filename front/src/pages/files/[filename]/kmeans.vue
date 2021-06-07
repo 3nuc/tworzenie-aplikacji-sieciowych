@@ -37,7 +37,7 @@ const tableData = computed(() => {
   }
   return tableDataRows.map(mapRowToObject)
 })
-const tableHeaders = computed(() => kmeansData.value?.dataset.at(0))
+const tableHeaders = computed(() => kmeansData.value?.dataset[0])
 
 const tableRowClassName = ({ row, rowIndex }) => {
   const isCorrect = (kmeansData.value?.properties.correctlyPredictedRowIDS ?? []).includes(rowIndex)
