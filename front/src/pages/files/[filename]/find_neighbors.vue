@@ -38,7 +38,7 @@ const chartified = computed(() => {
   const arrayToPointConverter = (item) => {
     // classes can be numbers but plot lib goes stupid
     // if you mix strings and numbers, so lets do strings
-    const assignedClass = String(item.at(-1))
+    const assignedClass = String(item[item.length - 1])
     const pointValues = item.slice(0, item.length)
     // cant display more than 2 dimensions due to chart lib limitation
     return { assignedClass, x: pointValues[0] ?? 0, y: pointValues[1] ?? 0, isUserInput: assignedClass === 'userinput' }
@@ -46,8 +46,9 @@ const chartified = computed(() => {
 
   const userPoint = [...Object.values(form.value.pointCoordinates), 'userinput']
 
+    console.log(neighborData.value ?? [])
   return [
-    ...(neighborData.value ?? []),
+    ...(neighborData.value.dataset ?? []),
     userPoint,
   ].map(arrayToPointConverter)
 })
