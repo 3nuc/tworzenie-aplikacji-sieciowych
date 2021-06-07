@@ -21,16 +21,19 @@ onMounted(() => {
 
 const sendDigitalization = async() => {
   await logics.digitalization.execute()
+  logics.digitalization.form.fileName = props.filename
   loadForm()
 }
 
 const sendDiscretization = async() => {
   await logics.discretization.execute()
+  logics.discretization.form.fileName = props.filename
   loadForm()
 }
 
 const sendNormalization = async() => {
   await logics.normalization.execute()
+  logics.normalization.form.fileName = props.filename
   loadForm()
 }
 
