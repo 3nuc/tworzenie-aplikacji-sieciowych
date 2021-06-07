@@ -44,7 +44,8 @@ const isReady = computed(() => logics.fileCsv.isReady.value && logics.fileInfo.i
 const tab = ref('dyskretyzacja')
 
 const columnOptions = computed(() => {
-  return logics.fileInfo.columnNames?.map(columnName => ({ label: columnName, value: columnName })) ?? []
+  console.log(logics.fileInfo.state.value)
+  return logics.fileInfo.state?.value.columnNames?.map(columnName => ({ label: columnName, value: columnName })) ?? []
 })
 
 const router = useRouter()
