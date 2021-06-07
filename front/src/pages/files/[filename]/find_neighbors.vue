@@ -20,7 +20,7 @@ const formFormatted = computed(() => ({
   ...form.value,
   fileName: props.filename,
   columns: form.value.columns.join(',').replaceAll('"', ''),
-  pointCoordinates: Object.values(form.value.pointCoordinates).join(','),
+  pointCoordinates: Object.values(form.value.pointCoordinates).length === form.value.columns.length ? Object.values(form.value.pointCoordinates).join(',') : Array(form.value.columns.length).fill(0).join(','),
   decissionColumn: form.value.decissionColumn?.replaceAll('"', ''),
 }))
 
