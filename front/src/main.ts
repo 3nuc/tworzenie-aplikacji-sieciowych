@@ -1,23 +1,29 @@
 import 'windi.css'
 import './styles/main.css'
 import 'element-plus/lib/theme-chalk/index.css'
-//import { ViteSSG } from 'vite-ssg'
+// import { ViteSSG } from 'vite-ssg'
 import generatedRoutes from 'pages-generated'
 import { setupLayouts } from 'layouts-generated'
 import { createApp } from 'vue'
 import { createHead } from '@vueuse/head'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { createI18n } from 'vue-i18n'
-import App from './App.vue'
 import ElementPlus from 'element-plus'
 import locale from 'element-plus/lib/locale/lang/pl'
+import App from './App.vue'
+import { worker } from './mocks/browser'
 import { UserModule } from '~/types'
 
 const routes = setupLayouts(generatedRoutes)
 
+const shouldRequestsBeMocked = process.env.NODE_ENV === 'development'
+if (shouldRequestsBeMocked) {
+  worker.start()
+}
+
 const router = new createRouter({
   history: createWebHashHistory(),
-  routes
+  routes,
 })
 
 const messages = Object.fromEntries(
@@ -33,9 +39,9 @@ const i18n = createI18n({
   locale: 'en',
   messages,
 })
-const head = createHead();
+const head = createHead()
 // https://github.com/antfu/vite-ssg
-export const app = createApp(App);
+export const app = createApp(App)
 app.use(router)
 app.use(ElementPlus, { locale })
 app.use(head)
